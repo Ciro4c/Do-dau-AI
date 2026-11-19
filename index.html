@@ -8,39 +8,42 @@
 :root{
   --bg:#f6f5f2; --card:#ffffff; --ink:#1d1d1b; --mute:#6b6a65; --line:#e3e1da;
   --ok:#2f7d4f; --warn:#b7791f; --bad:#b83232; --info:#2b5ea7;
-  --strong-bg:#fde4e4; --mid-bg:#fff0cf; --low-bg:#e6eefb; --hid-bg:#f3d9ff;
-  --accent:#1d1d1b;
+  --strong-bg:#fde4e4; --mid-bg:#fff0cf; --low-bg:#e6eefb; --hid-bg:#f3d9ff; --ins-bg:#d9f2e1; --accent:#1d1d1b;
 }
 @media (prefers-color-scheme:dark){
   :root{ --bg:#17171a; --card:#212125; --ink:#ececea; --mute:#a3a29c; --line:#34343a;
     --ok:#5fc08a; --warn:#e3b24d; --bad:#ef7676; --info:#7fa8e8;
-    --strong-bg:#552626; --mid-bg:#51411a; --low-bg:#23344f; --hid-bg:#47295a; --accent:#ececea; }
+    --strong-bg:#552626; --mid-bg:#51411a; --low-bg:#23344f; --hid-bg:#47295a; --ins-bg:#1f4a30; --accent:#ececea; }
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.wrap{max-width:1080px;margin:0 auto;padding:24px 16px 64px}
+.wrap{max-width:1180px;margin:0 auto;padding:24px 16px 64px}
 h1{font-size:22px;margin:0 0 4px}
 .sub{color:var(--mute);margin:0 0 18px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
 .grid{display:grid;grid-template-columns:1fr;gap:14px}
-@media (min-width:900px){ .grid.two{grid-template-columns:minmax(0,5fr) minmax(0,7fr)} }
+@media (min-width:900px){ .grid.two{grid-template-columns:minmax(0,4fr) minmax(0,7fr)} }
 textarea{width:100%;min-height:200px;resize:vertical;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--bg);color:var(--ink);font:14px/1.5 ui-monospace,Menlo,Consolas,monospace}
-.drop{border:2px dashed var(--line);border-radius:10px;padding:16px;text-align:center;color:var(--mute);margin-top:10px;cursor:pointer}
+textarea.ref{min-height:110px;margin-top:6px}
+details{margin-top:10px;font-size:13.5px} summary{cursor:pointer;color:var(--mute)}
+.drop{display:block;border:2px dashed var(--line);border-radius:10px;padding:16px;text-align:center;color:var(--mute);margin-top:10px;cursor:pointer}
 .drop.over{border-color:var(--info);background:var(--low-bg);color:var(--ink)}
 .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 12px;border-radius:8px;cursor:pointer}
-button:hover{border-color:var(--mute)}
+button:hover{border-color:var(--mute)} button:disabled{opacity:.45;cursor:not-allowed}
 button.primary{background:var(--accent);color:var(--bg);border-color:var(--accent)}
 .note{font-size:13px;color:var(--mute);margin-top:10px}
 .caveat{border-left:4px solid var(--warn);background:var(--mid-bg);padding:10px 12px;border-radius:6px;font-size:13.5px;margin-top:14px}
+.tabs{display:flex;gap:6px;margin-bottom:12px;border-bottom:1px solid var(--line);padding-bottom:8px;flex-wrap:wrap}
+.tabs button.on{background:var(--accent);color:var(--bg);border-color:var(--accent)}
 .items{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
 .item{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;cursor:pointer;background:var(--card)}
 .item.sel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
 .item .nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pill{font-size:12px;padding:2px 8px;border-radius:99px;border:1px solid var(--line);white-space:nowrap}
 .pill.ok{color:var(--ok)} .pill.warn{color:var(--warn)} .pill.bad{color:var(--bad)}
-.scores{display:grid;grid-template-columns:1fr;gap:12px;margin:6px 0 14px}
-@media (min-width:560px){ .scores{grid-template-columns:1fr 1fr} }
+.scores{display:grid;grid-template-columns:1fr;gap:12px;margin:6px 0 10px}
+@media (min-width:560px){ .scores{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))} }
 .score{border:1px solid var(--line);border-radius:10px;padding:12px}
 .score .big{font-size:30px;font-weight:700;line-height:1.1}
 .bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin:8px 0 6px}
@@ -53,49 +56,64 @@ button.primary{background:var(--accent);color:var(--bg);border-color:var(--accen
 .tag.strong{background:var(--strong-bg);color:var(--bad)}
 .tag.mid{background:var(--mid-bg);color:var(--warn)}
 .tag.low{background:var(--low-bg);color:var(--info)}
-.tag.info{background:var(--line);color:var(--mute)}
-.samples{font:12.5px/1.5 ui-monospace,Menlo,Consolas,monospace;color:var(--ink);background:var(--bg);border-radius:6px;padding:6px 8px;margin-top:4px;overflow-wrap:anywhere}
+.samples{font:12.5px/1.5 ui-monospace,Menlo,Consolas,monospace;background:var(--bg);border-radius:6px;padding:6px 8px;margin-top:4px;overflow-wrap:anywhere}
 h3{font-size:15px;margin:16px 0 8px}
-.view{white-space:pre-wrap;overflow-wrap:anywhere;border:1px solid var(--line);border-radius:8px;padding:12px;background:var(--bg);max-height:420px;overflow:auto;font-size:14px}
+.view{white-space:pre-wrap;overflow-wrap:anywhere;border:1px solid var(--line);border-radius:8px;padding:12px;background:var(--bg);max-height:440px;overflow:auto;font-size:14px}
 .view mark{padding:0 1px;border-radius:3px;color:inherit}
 .view mark.m-strong{background:var(--strong-bg);outline:1px solid var(--bad)}
 .view mark.m-mid{background:var(--mid-bg)}
 .view mark.m-low{background:var(--low-bg)}
 .view mark.m-hid{background:var(--hid-bg);outline:1px dashed var(--info)}
-.view .inv{font:11px ui-monospace,Menlo,monospace;padding:0 4px;border-radius:4px;margin:0 1px;vertical-align:baseline;border:1px solid}
+.view .inv{font:11px ui-monospace,Menlo,monospace;padding:0 4px;border-radius:4px;margin:0 1px;border:1px solid}
 .view .inv.s3{background:var(--strong-bg);border-color:var(--bad);color:var(--bad)}
 .view .inv.s2{background:var(--mid-bg);border-color:var(--warn);color:var(--warn)}
 .view .inv.s1{background:var(--low-bg);border-color:var(--info);color:var(--info)}
+.view del{background:var(--strong-bg);color:var(--bad);text-decoration:line-through}
+.view ins{background:var(--ins-bg);text-decoration:none;outline:1px solid var(--ok)}
 .legend{display:flex;flex-wrap:wrap;gap:10px;font-size:12.5px;color:var(--mute);margin-bottom:6px}
 .empty{color:var(--mute);text-align:center;padding:36px 8px}
 .kv{display:grid;grid-template-columns:150px 1fr;gap:2px 10px;font-size:13.5px}
 .kv div:nth-child(odd){color:var(--mute)}
-#out{margin-top:10px;display:none}
+#out{margin-top:10px;display:none;min-height:90px}
+.opt{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-bottom:1px solid var(--line);font-size:14px}
+.opt input{margin-top:4px}
+.opt .c{margin-left:auto;color:var(--mute);white-space:nowrap}
+.opt small{display:block;color:var(--mute)}
+select{font:inherit;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:2px 6px}
+ol.g{padding-left:20px} ol.g li{margin-bottom:8px}
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>Dò dấu vết AI &amp; ký tự lạ</h1>
-  <p class="sub">Dán văn bản hoặc thả file (.txt .md .docx .html .csv). App tự quét ngay trên máy bạn, không gửi dữ liệu đi đâu.</p>
+  <p class="sub">Dán văn bản hoặc thả file (.txt .md .docx .html .csv). App chạy ngay trên máy bạn, không gửi dữ liệu đi đâu.</p>
 
   <div class="grid two">
     <div class="card">
       <textarea id="inp" placeholder="Dán văn bản cần kiểm tra vào đây…" spellcheck="false"></textarea>
+      <details id="refBox">
+        <summary>Đối chiếu với văn bản chắc chắn do chính tác giả viết (tuỳ chọn, nên ≥ 600 từ)</summary>
+        <textarea id="ref" class="ref" placeholder="Dán một bài mà bạn chắc chắn người này tự viết (bài cũ, thư, bài kiểm tra có giám sát…)" spellcheck="false"></textarea>
+      </details>
       <label class="drop" id="drop" for="fi">Thả file vào đây hoặc bấm để chọn (nhiều file cũng được)</label>
-      <input type="file" id="fi" multiple accept=".txt,.md,.markdown,.docx,.html,.htm,.csv,.json,.xml,.rtf" style="display:none">
+      <input type="file" id="fi" multiple accept=".txt,.md,.markdown,.docx,.html,.htm,.csv,.json,.xml" style="display:none">
       <div class="btns">
         <button id="bSample">Dùng văn bản mẫu</button>
-        <button id="bClean">Xoá ký tự ẩn &amp; chuẩn hoá</button>
         <button id="bReport">Sao chép báo cáo</button>
         <button id="bClear">Xoá hết</button>
       </div>
       <textarea id="out" readonly></textarea>
       <div class="note" id="msg"></div>
-      <div class="caveat"><b>Lưu ý quan trọng:</b> chưa có công cụ nào kết luận chắc chắn "do AI viết". App này chỉ chỉ ra <b>bằng chứng cụ thể</b> (ký tự ẩn, dấu vết sao chép từ chatbot, văn phong mẫu). Không thấy dấu hiệu không có nghĩa là người viết, và có dấu hiệu cũng có thể chỉ do copy từ web/Word/PDF. Đừng dùng một mình kết quả này để buộc tội ai.</div>
+      <div class="caveat"><b>Lưu ý quan trọng:</b> chưa có công cụ nào kết luận chắc chắn "do AI viết". App chỉ chỉ ra <b>bằng chứng cụ thể</b>. Không thấy dấu hiệu không có nghĩa là người viết, và có dấu hiệu cũng có thể do copy từ web/Word/PDF hoặc do người viết có văn phong giống AI. Đừng dùng một mình kết quả này để buộc tội ai.</div>
     </div>
 
-    <div class="card" id="res">
-      <div class="empty">Chưa có gì để phân tích. Dán văn bản hoặc thả file ở bên trái.</div>
+    <div class="card">
+      <div class="tabs">
+        <button id="tA" class="on">Phân tích</button>
+        <button id="tC">Làm sạch (chỉ xoá/chỉnh dấu AI)</button>
+        <button id="tG">Cách kiểm tra thật kỹ</button>
+      </div>
+      <div id="pane"><div class="empty">Chưa có gì để phân tích. Dán văn bản hoặc thả file ở bên trái.</div></div>
     </div>
   </div>
 </div>
@@ -106,7 +124,6 @@ const LV = {strong:3, mid:2, low:1};
 const hex = cp => 'U+' + cp.toString(16).toUpperCase().padStart(4,'0');
 const isEmojiish = cp => cp >= 0x1F000 || (cp >= 0x2190 && cp <= 0x2BFF) || cp === 0xFE0F || cp === 0x20E3 || cp === 0x200D;
 
-// Trả về [nhóm, mức, tên] hoặc null
 function classifyCp(cp, prev, next, idx){
   if ((cp>=0xE000 && cp<=0xF8FF) || cp>=0xF0000) return ['pua','strong','Ký tự vùng riêng (Private Use)'];
   if (cp>=0xE0000 && cp<=0xE007F) return ['tag','strong','Ký tự Tag ẩn'];
@@ -139,26 +156,21 @@ function classifyCp(cp, prev, next, idx){
   return null;
 }
 
-const AI_RULES = [
-  // ---- dấu vết sao chép trực tiếp từ chatbot (mạnh) ----
-  {lv:'strong', title:'Mã trích dẫn kiểu ChatGPT', re:/【\d+(?::\d+)?†[^】]*】|\boai_citation[^\s)\]]*|contentReference\[[^\]]*\](?:\{[^}]*\})?|\bciteturn\d+\w*|\bturn\d+(?:search|view|news|image|file)\d+/g,
-   desc:'Chuỗi trích dẫn nội bộ mà ChatGPT sinh ra, thường còn sót khi copy.'},
-  {lv:'strong', title:'Mã trích dẫn kiểu Gemini/NotebookLM', re:/\[cite_start\]|\[cite:\s*[\d,\s]+\]/g,
-   desc:'Thẻ [cite_start] hoặc [cite: 1,2] do Gemini/NotebookLM sinh ra.'},
-  {lv:'strong', title:'Đường link gắn nguồn chatbot', re:/[?&]utm_source=(?:chatgpt\.com|openai|copilot\.com|perplexity)[^\s)\]]*/gi,
-   desc:'Link do chatbot chèn vào, có tham số theo dõi nguồn.'},
-  {lv:'strong', title:'Câu tự nhận là AI / mô hình ngôn ngữ', re:/\b(?:as an ai(?: language model)?|as a large language model|i(?:'|’)m an ai|i am an ai|i (?:cannot|can't|can’t) (?:browse|access real-time)|my (?:training data|knowledge cutoff)|as of my last (?:knowledge )?update|regenerate response)\b|(?:là một (?:mô hình ngôn ngữ|trí tuệ nhân tạo|AI)\b|với tư cách là (?:một )?(?:AI|mô hình|trợ lý ảo)|dữ liệu huấn luyện của tôi|cập nhật (?:kiến thức )?cuối cùng của tôi|tôi không có (?:khả năng )?truy cập (?:vào )?(?:internet|thời gian thực))/gi,
-   desc:'Câu chỉ chatbot mới nói về bản thân như vậy.'},
-  // ---- văn phong hội thoại với chatbot (trung bình) ----
-  {lv:'mid', title:'Mở đầu/kết thúc kiểu trả lời chatbot', re:/^\s*(?:certainly|sure|absolutely|of course|great question)[!,.]|^\s*here(?:'|’)?s? (?:is |are )?(?:a |an |the |your )[^\n]{0,80}:|\b(?:i hope this helps|let me know if you (?:need|have|would|want)|feel free to ask)\b|^\s*(?:tất nhiên(?: rồi)?|chắc chắn(?: rồi)?|dĩ nhiên|câu hỏi (?:rất )?hay)\s*[!,.]|^\s*dưới đây là[^\n]{0,100}:|hy vọng (?:thông tin|câu trả lời|điều) (?:này )?(?:sẽ )?(?:giúp|hữu ích)|(?:hãy|đừng ngần ngại) (?:cho tôi biết|hỏi tôi)(?: nếu| thêm)|bạn có muốn tôi (?:viết|giải thích|tiếp tục|mở rộng)/gim,
-   desc:'Câu chào hỏi/đóng lời đặc trưng của chatbot, hiếm khi có trong bài người viết.'},
-  {lv:'mid', title:'Còn sót cú pháp Markdown', re:/\*\*[^*\n]{1,120}\*\*|^#{1,6}[ \t]+\S|```|^\s*\|?[ \t]*:?-{3,}:?[ \t]*\|[ \t:|-]*$|^\s*\d+\.[ \t]+\*\*|^\s*---+\s*$/gm,
-   desc:'**in đậm**, # tiêu đề, bảng |---| hoặc ``` còn nguyên trong văn bản thuần. Dấu hiệu dán thẳng từ chatbot.'},
-  {lv:'mid', title:'Chỗ trống mẫu chưa điền', re:/\[(?:your|insert|add|company|name|date|tên|chèn|điền|thêm|ngày|công ty)[^\]\n]{0,40}\]/gi,
-   desc:'Placeholder như [Tên của bạn], [Insert date] chưa được thay.'},
-  {lv:'low', title:'Dòng mở đầu bằng emoji/biểu tượng kiểu trình bày AI', re:/^[ \t]*(?:✅|❌|✔️|✨|🚀|📌|🔹|🔸|💡|⚠️|👉|📝|🎯|🔑|📊)[ \t]/gmu,
-   desc:'Gạch đầu dòng bằng emoji rất hay gặp ở câu trả lời của chatbot.'},
-];
+/* ---------- quy tắc dấu vết AI trực tiếp ---------- */
+const RE_CITE_GPT = /【\d+(?::\d+)?†[^】]*】|\boai_citation[^\s)\]]*|contentReference\[[^\]]*\](?:\{[^}]*\})?|\bciteturn\d+\w*|\bturn\d+(?:search|view|news|image|file)\d+/g;
+const RE_CITE_GEM = /\[cite_start\]|\[cite:\s*[\d,\s]+\]/g;
+const RE_UTM = /([?&])utm_source=(?:chatgpt\.com|openai|copilot\.com|perplexity)(&?)(?=[\s)\]&]|$|[^&])/gi;
+const RE_SELF = /\b(?:as an ai(?: language model)?|as a large language model|i(?:'|’)m an ai|i am an ai|i (?:cannot|can't|can’t) (?:browse|access real-time)|my (?:training data|knowledge cutoff)|as of my last (?:knowledge )?update|regenerate response)\b|(?:là một (?:mô hình ngôn ngữ|trí tuệ nhân tạo|AI)\b|với tư cách là (?:một )?(?:AI|mô hình|trợ lý ảo)|dữ liệu huấn luyện của tôi|cập nhật (?:kiến thức )?cuối cùng của tôi|tôi không có (?:khả năng )?truy cập (?:vào )?(?:internet|thời gian thực))/gi;
+const RE_PLEASE = /^\s*(?:certainly|sure|absolutely|of course|great question)[!,.]|^\s*here(?:'|’)?s? (?:is |are )?(?:a |an |the |your )[^\n]{0,80}:|\b(?:i hope this helps|let me know if you (?:need|have|would|want)|feel free to ask)\b|^\s*(?:tất nhiên(?: rồi)?|chắc chắn(?: rồi)?|dĩ nhiên|câu hỏi (?:rất )?hay)\s*[!,.]|^\s*dưới đây là[^\n]{0,100}:|hy vọng (?:thông tin|câu trả lời|điều) (?:này )?(?:sẽ )?(?:giúp|hữu ích)|(?:hãy|đừng ngần ngại) (?:cho tôi biết|hỏi tôi)(?: nếu| thêm)|bạn có muốn tôi (?:viết|giải thích|tiếp tục|mở rộng)/gim;
+const RE_MD_BOLD = /\*\*[^*\n]{1,120}\*\*/g;
+const RE_MD_HEAD = /^#{1,6}[ \t]+(?=\S)/gm;
+const RE_MD_FENCE = /^[ \t]*```[^\n]*$/gm;
+const RE_MD_HR = /^[ \t]*(?:---+|\*\*\*+|___+)[ \t]*$/gm;
+const RE_MD_TBL = /^[ \t]*\|?[ \t]*:?-{3,}:?[ \t]*(?:\|[ \t:|-]*)+$/gm;
+const RE_MD_NUMBOLD = /^[ \t]*\d+\.[ \t]+\*\*/gm;
+const RE_PLACEHOLDER = /\[(?:your|insert|add|company|name|date|tên|chèn|điền|thêm|ngày|công ty)[^\]\n]{0,40}\]/gi;
+const RE_EMOJI_BUL = /^[ \t]*(?:✅|❌|✔️|✨|🚀|📌|🔹|🔸|💡|⚠️|👉|📝|🎯|🔑|📊)[ \t]+/gmu;
+const DASH_RE = /[ \t]*—[ \t]*|[ \t]+–[ \t]+|[ \t]+--[ \t]+/g;
 
 const STYLE_SRC = [
   "delv(?:e|es|ed|ing)(?: into)?","tapestry","testament to","it(?:['’]s| is) (?:important|worth|crucial|essential) to (?:note|mention|remember)",
@@ -168,370 +180,598 @@ const STYLE_SRC = [
   "tóm lại","nhìn chung","có thể thấy rằng","điều quan trọng (?:cần|là) (?:lưu ý|nhớ|ghi nhớ)","đóng vai trò (?:quan trọng|then chốt|thiết yếu|cốt lõi)",
   "không chỉ [^.,;\\n]{3,60}? mà còn","bức tranh toàn cảnh","ngày càng (?:phát triển|đa dạng|quan trọng)","một cách (?:toàn diện|tối ưu|bền vững)","không thể phủ nhận",
   "đáng chú ý là","góp phần (?:quan trọng|không nhỏ|thúc đẩy)","mang lại (?:nhiều )?giá trị","hành trình (?:khám phá|chinh phục)","mở ra (?:nhiều )?(?:cơ hội|cánh cửa)",
-  "tựu chung","yếu tố then chốt","đa chiều","trong bối cảnh (?:hiện nay|ngày nay|toàn cầu hóa|công nghệ)"
+  "tựu chung","yếu tố then chốt","đa chiều","trong bối cảnh (?:hiện nay|ngày nay|toàn cầu hóa|công nghệ)","việc [^.,;\\n]{3,40} đóng vai trò"
 ];
 const STYLE_RE = new RegExp('(?<![\\p{L}\\p{N}])(?:' + STYLE_SRC.join('|') + ')(?![\\p{L}\\p{N}])', 'giu');
 const TRANS_RE = /(?:^|[.!?…]\s+|\n)\s*(ngoài ra|hơn nữa|bên cạnh đó|mặt khác|moreover|furthermore|additionally|in addition)\s*,/gi;
+const AI_TERM_CI = /(?<![\p{L}\p{N}])(?:trí tuệ nhân tạo|học máy|machine learning|học sâu|deep learning|mô hình ngôn ngữ(?: lớn)?|large language models?|chatgpt|openai|gemini|copilot|midjourney|neural networks?|mạng nơ-?ron|prompts?|chatbots?|generative ai|ai tạo sinh|dữ liệu huấn luyện|tự động hóa|chuyển đổi số|dữ liệu lớn|big data|xử lý ngôn ngữ tự nhiên|trợ lý ảo|cách mạng công nghiệp 4\.0)(?![\p{L}\p{N}])/giu;
+const AI_TERM_CS = /(?<![\p{L}\p{N}])(?:AI|A\.I\.|LLMs?|NLP|GPT-?\d*(?:\.\d)?)(?![\p{L}\p{N}])/gu;
+const RE_FORMAL = /(?<![\p{L}])(?:đồng thời|nhằm|do đó|vì vậy|theo đó|thông qua|cần thiết|therefore|thus|furthermore|nonetheless|accordingly)(?![\p{L}])/giu;
+const RE_INFORMAL = /(?<![\p{L}])(?:nè|nhé|nha|nhỉ|nhá|hả|ạ|kiểu như|ý là|haha|hihi|huhu|lol|oke?|vcl?|thôi mà|á)(?![\p{L}])|[:;]-?[)(DP](?![\p{L}])|=\)\)|😂|😅|🤣/giu;
+
+const STOP = new Set(('và là của có cho được trong các những một này khi để với không đã sẽ cũng như thì mà nhưng hay hoặc từ đến về ra vào lên xuống rất đang bị bởi vì nên do tại theo trên dưới sau trước còn lại đó nó họ chúng tôi ta anh chị em ông bà ' +
+  'the of and to a in is that for it as with on be by this are was were at from or an but not have has had will would can could their its they we you he she his her which what who').split(' '));
 
 function countWords(t){ return (t.match(/\S+/g)||[]).length; }
-function sentencesOf(t){ return t.split(/(?<=[.!?…])\s+|\n+/).map(s=>s.trim()).filter(s=>countWords(s)>=3); }
+function toks(text){ const out=[]; for (const m of text.matchAll(/[\p{L}\p{N}]+(?:['’][\p{L}]+)?/gu)) out.push({w:m[0].toLowerCase(), s:m.index, e:m.index+m[0].length}); return out; }
+function sentenceSpans(text){ const out=[]; for (const m of text.matchAll(/[^.!?…\n]+(?:[.!?…]+|(?=\n)|$)/g)){ const t=m[0].trim(); if (countWords(t)>=3) out.push({s:m.index, e:m.index+m[0].length, t}); } return out; }
 function stdev(a){ const m=a.reduce((x,y)=>x+y,0)/a.length; return {m, sd:Math.sqrt(a.reduce((x,y)=>x+(y-m)**2,0)/a.length)}; }
+function median(a){ const b=[...a].sort((x,y)=>x-y), n=b.length; return n%2?b[(n-1)/2]:(b[n/2-1]+b[n/2])/2; }
+function chunkByWords(text, size){
+  const w=[...text.matchAll(/\S+/g)]; const out=[];
+  for (let i=0;i<w.length;i+=size){ const g=w.slice(i,i+size); out.push({s:g[0].index, e:g[g.length-1].index+g[g.length-1][0].length}); }
+  if (out.length>1 && countWords(text.slice(out[out.length-1].s,out[out.length-1].e))<size/2){ const l=out.pop(); out[out.length-1].e=l.e; }
+  return out.map(c=>({...c, t:text.slice(c.s,c.e)}));
+}
+const addMark = (marks,s,e,cls,sev,tip) => marks.push({s,e,cls,sev,tip});
 
+/* ---------- đối chiếu phong cách với văn bản mẫu ---------- */
+function charGrams(t,n){ const s=' '+t.toLowerCase().replace(/\s+/g,' ')+' '; const m=new Map(); for (let i=0;i+n<=s.length;i++){ const g=s.slice(i,i+n); m.set(g,(m.get(g)||0)+1);} return m; }
+function cosine(a,b){ let dot=0,na=0,nb=0; for (const [k,v] of a){ na+=v*v; const w=b.get(k); if (w) dot+=v*w; } for (const v of b.values()) nb+=v*v; return dot/Math.sqrt((na*nb)||1); }
+function fwVec(t){ const m=new Map(); for (const x of toks(t)) if (STOP.has(x.w)) m.set(x.w,(m.get(x.w)||0)+1); return m; }
+function compareRef(text, ref){
+  const wT=countWords(text), wR=countWords(ref);
+  const sim3 = cosine(charGrams(text,3), charGrams(ref,3)), simF = cosine(fwVec(text), fwVec(ref));
+  const rc = chunkByWords(ref,150);
+  let baseline=null, mean=null, sd=null;
+  if (rc.length>=4){
+    const ev=rc.filter((_,i)=>i%2===0).map(c=>c.t).join('\n'), od=rc.filter((_,i)=>i%2===1).map(c=>c.t).join('\n');
+    baseline = (cosine(charGrams(ev,3),charGrams(od,3)) + cosine(fwVec(ev),fwVec(od)))/2;
+    const sims = rc.map((c,i)=>{ const rest=rc.filter((_,j)=>j!==i).map(x=>x.t).join('\n'); return cosine(charGrams(c.t,3), charGrams(rest,3)); });
+    ({m:mean, sd} = stdev(sims)); sd = Math.max(sd, 0.01);
+  }
+  const sim = (sim3+simF)/2;
+  const chunks = chunkByWords(text,150).map(c=>{ const s=cosine(charGrams(c.t,3), charGrams(ref,3)); return {...c, sim:s, flag: mean!==null && s < mean-2*sd}; });
+  let band=null, ratio=null;
+  if (baseline){ ratio = sim/baseline; band = ratio>=0.97 ? ['ok','Gần phong cách mẫu'] : ratio>=0.92 ? ['warn','Hơi lệch so với mẫu'] : ['bad','Khác rõ so với mẫu']; }
+  return {sim, sim3, simF, baseline, ratio, band, chunks, wT, wR, warn: (wR<600||wT<300) ? 'Văn bản quá ngắn (cần mẫu ≥ 600 từ và bài ≥ 300 từ) nên độ tin cậy thấp.' : ''};
+}
+
+/* ---------- phân tích chính ---------- */
 function analyze(text, extra){
   extra = extra || {};
-  const marks = []; const F = [];
+  const marks = [], F = [];
   const words = countWords(text);
+  const T = toks(text);
 
   // 1) Ký tự ẩn / lạ
-  const inv = new Map();
-  const arr = Array.from(text);
+  const inv = new Map(), arr = Array.from(text);
   let idx = 0, prev = 0;
-  for (let k=0; k<arr.length; k++){
-    const ch = arr[k], cp = ch.codePointAt(0), next = k+1<arr.length ? arr[k+1].codePointAt(0) : 0;
+  for (let k=0;k<arr.length;k++){
+    const ch=arr[k], cp=ch.codePointAt(0), next=k+1<arr.length?arr[k+1].codePointAt(0):0;
     const c = classifyCp(cp, prev, next, idx);
     if (c){
-      const key = cp + '|' + c[1];
-      if (!inv.has(key)) inv.set(key, {cp, grp:c[0], lv:c[1], name:c[2], count:0, ctx:[]});
+      const key = cp+'|'+c[1];
+      if (!inv.has(key)) inv.set(key,{cp,grp:c[0],lv:c[1],name:c[2],count:0,ctx:[]});
       const o = inv.get(key); o.count++;
-      if (o.ctx.length<4) o.ctx.push(text.slice(Math.max(0,idx-12), idx).replace(/\n/g,'↵') + '⟦' + hex(cp) + '⟧' + text.slice(idx+ch.length, idx+ch.length+12).replace(/\n/g,'↵'));
-      marks.push({s:idx, e:idx+ch.length, cls:'inv', sev:LV[c[1]], tip:hex(cp)+' '+c[2], code:cp});
+      if (o.ctx.length<4) o.ctx.push(text.slice(Math.max(0,idx-12),idx).replace(/\n/g,'↵')+'⟦'+hex(cp)+'⟧'+text.slice(idx+ch.length,idx+ch.length+12).replace(/\n/g,'↵'));
+      marks.push({s:idx,e:idx+ch.length,cls:'inv',sev:LV[c[1]],tip:hex(cp)+' '+c[2],code:cp});
     }
-    prev = cp; idx += ch.length;
+    prev=cp; idx+=ch.length;
   }
   for (const o of inv.values()){
     const pts = o.lv==='strong' ? 50+Math.min(35,o.count*3) : o.lv==='mid' ? 20+Math.min(20,o.count*2) : Math.min(5,o.count);
-    F.push({group:'hidden', level:o.lv, title:hex(o.cp)+' · '+o.name, count:o.count, pts,
-      desc: o.lv==='strong' ? 'Ký tự vô hình, thường dùng làm "watermark" hoặc còn sót khi copy từ chatbot/web.' :
-            o.lv==='mid' ? 'Ký tự hiếm trong văn bản bình thường.' : 'Thường vô hại (copy từ Word/web), chỉ đáng chú ý nếu xuất hiện nhiều.',
-      samples:o.ctx});
+    F.push({group:'hidden',level:o.lv,title:hex(o.cp)+' · '+o.name,count:o.count,pts,
+      desc:o.lv==='strong'?'Ký tự vô hình, thường dùng làm "watermark" hoặc còn sót khi copy từ chatbot/web.':o.lv==='mid'?'Ký tự hiếm trong văn bản bình thường.':'Thường vô hại (copy từ Word/web), chỉ đáng chú ý nếu xuất hiện nhiều.',samples:o.ctx});
   }
-
-  // Homoglyph: từ trộn Latin với Cyrillic/Greek
   const hg = [];
   for (const m of text.matchAll(/[\p{L}\p{M}\p{N}]+/gu)){
-    const w = m[0];
-    if (/\p{Script=Latin}/u.test(w) && /[\p{Script=Cyrillic}\p{Script=Greek}]/u.test(w)){
-      hg.push(w);
-      marks.push({s:m.index, e:m.index+w.length, cls:'m-strong', sev:3, tip:'Từ trộn chữ Latin với Cyrillic/Greek (homoglyph)'});
+    const w=m[0];
+    if (/\p{Script=Latin}/u.test(w) && /[\p{Script=Cyrillic}\p{Script=Greek}]/u.test(w)){ hg.push(w); addMark(marks,m.index,m.index+w.length,'m-strong',3,'Từ trộn chữ Latin với Cyrillic/Greek (homoglyph)'); }
+  }
+  if (hg.length) F.push({group:'hidden',level:'strong',title:'Từ trộn chữ Latin với Cyrillic/Greek',count:hg.length,pts:50+Math.min(35,hg.length*3),
+    desc:'Chữ trông giống hệt chữ Latin nhưng là mã khác (vd "а" Cyrillic thay "a"). Thường dùng để né công cụ dò đạo văn/AI.',
+    samples:[...new Set(hg)].slice(0,6).map(w=>w+'  ('+Array.from(w).filter(c=>/[\p{Script=Cyrillic}\p{Script=Greek}]/u.test(c)).map(c=>c+'='+hex(c.codePointAt(0))).join(', ')+')')});
+  const comb = (text.match(/[̀-ͯ]/g)||[]).length;
+  if (comb && text.normalize('NFC')!==text) F.push({group:'hidden',level:'low',title:'Dấu tiếng Việt ở dạng tổ hợp (NFD)',count:comb,pts:Math.min(5,comb),desc:'Dấu thanh tách rời chữ cái. Hay gặp khi copy từ macOS/PDF/một số nguồn web; không nói lên ai viết.',samples:[]});
+  for (const h of (extra.hidden||[])) addMark(marks,h.s,h.e,'m-hid',3,'Văn bản ẩn: '+h.reason);
+  if ((extra.hidden||[]).length) F.push({group:'hidden',level:'strong',title:'Văn bản ẩn trong file Word',count:extra.hidden.length,pts:60,
+    desc:'Có đoạn chữ bị ẩn (Hidden), tô trắng hoặc cỡ chữ cực nhỏ. Hay dùng để giấu lệnh cho AI hoặc nội dung không muốn người đọc thấy.',
+    samples:extra.hidden.slice(0,4).map(h=>'['+h.reason+'] '+text.slice(h.s,Math.min(h.e,h.s+80)).replace(/\n/g,'↵'))});
+
+  // 2) Dấu vết AI trực tiếp
+  const direct = [
+    ['strong','Mã trích dẫn kiểu ChatGPT',RE_CITE_GPT,'Chuỗi trích dẫn nội bộ mà ChatGPT sinh ra, thường còn sót khi copy.'],
+    ['strong','Mã trích dẫn kiểu Gemini/NotebookLM',RE_CITE_GEM,'Thẻ [cite_start] hoặc [cite: 1,2] do Gemini/NotebookLM sinh ra.'],
+    ['strong','Đường link gắn nguồn chatbot',/[?&]utm_source=(?:chatgpt\.com|openai|copilot\.com|perplexity)[^\s)\]]*/gi,'Link do chatbot chèn vào, có tham số theo dõi nguồn.'],
+    ['strong','Câu tự nhận là AI / mô hình ngôn ngữ',RE_SELF,'Câu chỉ chatbot mới nói về bản thân như vậy.'],
+    ['mid','Mở đầu/kết thúc kiểu trả lời chatbot',RE_PLEASE,'Câu chào hỏi/đóng lời đặc trưng của chatbot, hiếm khi có trong bài người viết.'],
+    ['mid','Còn sót cú pháp Markdown',new RegExp([RE_MD_BOLD,RE_MD_HEAD,RE_MD_FENCE,RE_MD_TBL,RE_MD_NUMBOLD,RE_MD_HR].map(r=>r.source).join('|'),'gm'),'**in đậm**, # tiêu đề, bảng |---|, ``` hoặc dòng --- còn nguyên trong văn bản thuần. Dấu hiệu dán thẳng từ chatbot.'],
+    ['mid','Chỗ trống mẫu chưa điền',RE_PLACEHOLDER,'Placeholder như [Tên của bạn], [Insert date] chưa được thay.'],
+    ['low','Dòng mở đầu bằng emoji/biểu tượng kiểu trình bày AI',RE_EMOJI_BUL,'Gạch đầu dòng bằng emoji rất hay gặp ở câu trả lời của chatbot.']
+  ];
+  for (const [lv,title,re,desc] of direct){
+    const ms=[...text.matchAll(new RegExp(re.source,re.flags.includes('g')?re.flags:re.flags+'g'))].filter(m=>m[0].length);
+    if (!ms.length) continue;
+    ms.forEach(m=>addMark(marks,m.index,m.index+m[0].length,'m-'+lv,LV[lv],title));
+    F.push({group:'ai',level:lv,title,count:ms.length,pts:lv==='strong'?40+Math.min(15,ms.length*4):lv==='mid'?12:4,desc,samples:ms.slice(0,4).map(m=>m[0].trim().slice(0,90))});
+  }
+  const sm=[...text.matchAll(STYLE_RE)];
+  if (sm.length){
+    sm.forEach(m=>addMark(marks,m.index,m.index+m[0].length,'m-low',1,'Cụm từ văn mẫu thường gặp ở văn bản AI'));
+    const distinct=new Set(sm.map(m=>m[0].toLowerCase())).size, dens=sm.length/Math.max(words,1)*1000;
+    let pts=0; if (distinct>=3||dens>=3) pts=Math.min(22,Math.round(dens*3)+(distinct>=5?5:0));
+    F.push({group:'ai',level:'low',title:'Cụm từ "văn mẫu" hay gặp ở văn bản AI',count:sm.length,pts,
+      desc:'Mật độ '+dens.toFixed(1)+'/1000 từ, '+distinct+' cụm khác nhau. Người viết cũng dùng các cụm này, chỉ đáng ngờ khi dày đặc.',samples:[...new Set(sm.map(m=>m[0].toLowerCase()))].slice(0,8)});
+  }
+  const tr=[...text.matchAll(TRANS_RE)];
+  if (tr.length>=3) F.push({group:'ai',level:'low',title:'Nhiều câu mở bằng từ nối kiểu "Ngoài ra,", "Hơn nữa,"',count:tr.length,pts:5,desc:'Văn AI thường nối các ý bằng từ chuyển tiếp ở đầu câu rất đều đặn.',samples:[...new Set(tr.map(m=>m[1].toLowerCase()))]});
+
+  // 3) Gạch ngang dài (em-dash)
+  const dm=[...text.matchAll(DASH_RE)];
+  if (dm.length>=2 && words>=60){
+    const dens=dm.length/Math.max(words,1)*1000;
+    if (dens>=3){
+      dm.forEach(m=>addMark(marks,m.index,m.index+m[0].length,'m-mid',2,'Gạch ngang dài / gạch ngang ngăn cách'));
+      F.push({group:'dash',level:dens>=6?'mid':'low',title:'Dùng nhiều gạch ngang dài (—)',count:dm.length,pts:dens>=6?10:6,
+        desc:'Mật độ '+dens.toFixed(1)+'/1000 từ. Chatbot dùng dấu "—" (và " – ", " -- " ngăn cách) rất dày; người viết tiếng Việt hiếm khi dùng.',samples:[]});
     }
   }
-  if (hg.length){
-    const show = [...new Set(hg)].slice(0,6).map(w=>w+'  ('+Array.from(w).filter(c=>/[\p{Script=Cyrillic}\p{Script=Greek}]/u.test(c)).map(c=>c+'='+hex(c.codePointAt(0))).join(', ')+')');
-    F.push({group:'hidden', level:'strong', title:'Từ trộn chữ Latin với Cyrillic/Greek', count:hg.length, pts:50+Math.min(35,hg.length*3),
-      desc:'Chữ trông giống hệt chữ Latin nhưng là mã khác (vd "а" Cyrillic thay "a"). Thường dùng để né công cụ dò đạo văn/AI.', samples:show});
-  }
-  // Tiếng Việt dạng tổ hợp (NFD)
-  const comb = (text.match(/[̀-ͯ]/g)||[]).length;
-  if (comb && text.normalize('NFC') !== text){
-    F.push({group:'hidden', level:'low', title:'Dấu tiếng Việt ở dạng tổ hợp (NFD)', count:comb, pts:Math.min(5,comb),
-      desc:'Dấu thanh tách rời chữ cái. Hay gặp khi copy từ macOS/PDF/một số nguồn web; không nói lên ai viết.', samples:[]});
-  }
-  // Văn bản ẩn trong Word
-  for (const h of (extra.hidden||[])){
-    marks.push({s:h.s, e:h.e, cls:'m-hid', sev:3, tip:'Văn bản ẩn: '+h.reason});
-  }
-  if ((extra.hidden||[]).length){
-    F.push({group:'hidden', level:'strong', title:'Văn bản ẩn trong file Word', count:extra.hidden.length, pts:60,
-      desc:'Có đoạn chữ bị ẩn (Hidden), tô trắng hoặc cỡ chữ cực nhỏ. Hay dùng để giấu lệnh cho AI hoặc nội dung không muốn người đọc thấy.',
-      samples:extra.hidden.slice(0,4).map(h=>'['+h.reason+'] '+text.slice(h.s,Math.min(h.e,h.s+80)).replace(/\n/g,'↵'))});
+
+  // 4) Bullet / chia nhỏ ý
+  const lines=[]; { let p=0; for (const l of text.split('\n')){ lines.push({s:p,t:l}); p+=l.length+1; } }
+  const nonEmpty=lines.filter(l=>l.t.trim()).length;
+  const bl=[...text.matchAll(/^([ \t]*)((?:[-*•▪◦‣●]|\d{1,2}[.)]|[a-zA-Z][.)])[ \t]+)(?=\S)/gm)];
+  if (bl.length){
+    const ratio=bl.length/Math.max(nonEmpty,1);
+    const lead=[...text.matchAll(/^[ \t]*(?:[-*•▪◦●]|\d{1,2}[.)])[ \t]+(?:\*\*[^*\n]{2,60}\*\*|[^:\n]{2,40}:)[ \t]/gm)].length;
+    const avgW=bl.reduce((t,m)=>{ const ln=lines.find(l=>l.s<=m.index && m.index<=l.s+l.t.length); return t+(ln?countWords(ln.t):0); },0)/bl.length;
+    if (bl.length>=4 || (bl.length>=3 && ratio>=0.3)){
+      bl.forEach(m=>addMark(marks,m.index+m[1].length,m.index+m[1].length+m[2].length,'m-low',1,'Dòng liệt kê'));
+      const lvl=(ratio>=0.5&&bl.length>=6)?'mid':'low';
+      F.push({group:'list',level:lvl,title:'Chia nhỏ ý thành gạch đầu dòng / liệt kê',count:bl.length,pts:lvl==='mid'?12:6,
+        desc:bl.length+'/'+nonEmpty+' dòng là mục liệt kê ('+Math.round(ratio*100)+'%), trung bình '+avgW.toFixed(1)+' từ/mục. Bài người viết thường diễn giải thành đoạn văn liền mạch hơn.',samples:[]});
+      if (lead>=3) F.push({group:'list',level:'mid',title:'Mục liệt kê dạng "Tiêu đề: mô tả" lặp lại',count:lead,pts:8,desc:'Cấu trúc "**Từ khoá:** giải thích" lặp đều ở nhiều mục là khuôn rất đặc trưng của chatbot.',samples:[]});
+      const kinds=new Set(bl.map(m=>/\d/.test(m[2])?'num':/[a-zA-Z]/.test(m[2])?'abc':m[2].trim()));
+      if (kinds.size>=3) F.push({group:'style',level:'low',title:'Trộn nhiều kiểu ký hiệu liệt kê',count:kinds.size,pts:3,desc:'Có '+[...kinds].join(' , ')+': dấu hiệu ghép từ nhiều nguồn.',samples:[]});
+    }
   }
 
-  // 2) Dấu vết AI (regex)
-  for (const r of AI_RULES){
-    const ms = [...text.matchAll(r.re)];
-    if (!ms.length) continue;
-    ms.forEach(m=>{ if(m[0].length) marks.push({s:m.index, e:m.index+m[0].length, cls:'m-'+r.lv, sev:LV[r.lv], tip:r.title}); });
-    const pts = r.lv==='strong' ? 40+Math.min(15,ms.length*4) : r.lv==='mid' ? 12 : 4;
-    F.push({group:'ai', level:r.lv, title:r.title, count:ms.length, pts, desc:r.desc, samples:ms.slice(0,4).map(m=>m[0].trim().slice(0,90))});
-  }
-  // Cụm từ "văn mẫu"
-  const sm = [...text.matchAll(STYLE_RE)];
-  if (sm.length){
-    sm.forEach(m=>marks.push({s:m.index, e:m.index+m[0].length, cls:'m-low', sev:1, tip:'Cụm từ văn mẫu thường gặp ở văn bản AI'}));
-    const distinct = new Set(sm.map(m=>m[0].toLowerCase())).size;
-    const dens = sm.length / Math.max(words,1) * 1000;
-    let pts = 0;
-    if (distinct>=3 || dens>=3) pts = Math.min(22, Math.round(dens*3) + (distinct>=5?5:0));
-    F.push({group:'ai', level:'low', title:'Cụm từ "văn mẫu" hay gặp ở văn bản AI', count:sm.length, pts,
-      desc:'Mật độ '+dens.toFixed(1)+'/1000 từ, '+distinct+' cụm khác nhau. Người viết cũng dùng các cụm này, chỉ đáng ngờ khi dày đặc.',
-      samples:[...new Set(sm.map(m=>m[0].toLowerCase()))].slice(0,8)});
-  }
-  const tr = [...text.matchAll(TRANS_RE)];
-  if (tr.length>=3){
-    F.push({group:'ai', level:'low', title:'Nhiều câu mở bằng từ nối kiểu "Ngoài ra,", "Hơn nữa,"', count:tr.length, pts:5,
-      desc:'Văn AI thường nối các ý bằng từ chuyển tiếp ở đầu câu rất đều đặn.', samples:[...new Set(tr.map(m=>m[1].toLowerCase()))]});
-  }
-  const dashes = (text.match(/—/g)||[]).length;
-  if (dashes>=3 && dashes/Math.max(words,1)*1000 > 4){
-    for (const m of text.matchAll(/—/g)) marks.push({s:m.index, e:m.index+1, cls:'m-low', sev:1, tip:'Gạch ngang dài (—)'});
-    F.push({group:'ai', level:'low', title:'Dùng nhiều gạch ngang dài (—)', count:dashes, pts:6,
-      desc:'Mật độ '+(dashes/Math.max(words,1)*1000).toFixed(1)+'/1000 từ. Chatbot tiếng Anh dùng dấu này rất nhiều, người viết tiếng Việt thì hiếm.', samples:[]});
-  }
-  if (/[“”‘’]/.test(text) && /["']/.test(text) && /[“”]/.test(text) && /"[^"\n]+"/.test(text)){
-    F.push({group:'info', level:'low', title:'Trộn dấu nháy thẳng và dấu nháy cong', count:1, pts:0,
-      desc:'Cho thấy văn bản ghép từ nhiều nguồn (Word, web, chatbot). Chưa đủ để kết luận.', samples:[]});
-  }
-
-  // 3) Thống kê văn phong (yếu, cần đủ dài)
-  if (words>=150){
-    const sents = sentencesOf(text);
-    if (sents.length>=8){
-      const lens = sents.map(countWords);
-      const {m, sd} = stdev(lens); const cv = sd/m;
-      F.push({group:'stat', level:'low', title:'Độ dài câu: TB '+m.toFixed(1)+' từ, độ lệch '+sd.toFixed(1)+' (CV '+cv.toFixed(2)+')', count:sents.length,
-        pts: cv<0.35 ? 8 : 0,
-        desc: cv<0.35 ? 'Các câu dài gần như bằng nhau. Người viết tự nhiên thường lúc dài lúc ngắn (CV thường > 0.5). Chỉ là gợi ý yếu.' : 'Độ biến thiên độ dài câu ở mức bình thường.',
-        samples:[]});
-      const open = {}; sents.forEach(s=>{ const k=s.toLowerCase().split(/\s+/).slice(0,2).join(' '); open[k]=(open[k]||0)+1; });
-      const top = Object.entries(open).sort((a,b)=>b[1]-a[1])[0];
-      if (top && top[1]/sents.length>=0.2 && top[1]>=3){
-        F.push({group:'stat', level:'low', title:'Nhiều câu mở đầu giống nhau', count:top[1], pts:5,
-          desc:'"'+top[0]+'" mở đầu '+top[1]+'/'+sents.length+' câu.', samples:[]});
+  // 5) Lặp từ / cấu trúc / diễn đạt máy móc
+  if (words>=100){
+    const map=new Map();
+    for (let i=0;i+4<=T.length;i++){
+      const g=T.slice(i,i+4); if (g.filter(x=>!STOP.has(x.w)&&x.w.length>1).length<2) continue;
+      const key=g.map(x=>x.w).join(' '); if(!map.has(key)) map.set(key,[]); map.get(key).push(i);
+    }
+    const reps=[...map.entries()].filter(([,v])=>v.length>=3).sort((a,b)=>b[1].length-a[1].length);
+    const chosen=[];
+    for (const [k,v] of reps){
+      const ws=k.split(' '), a=' '+ws.slice(0,3).join(' ')+' ', b=' '+ws.slice(1).join(' ')+' ';
+      if (chosen.some(c=>(' '+c[0]+' ').includes(a)||(' '+c[0]+' ').includes(b))) continue;
+      chosen.push([k,v]); if (chosen.length>=8) break;
+    }
+    if (chosen.length){
+      chosen.forEach(([k,v])=>v.forEach(i=>addMark(marks,T[i].s,T[i+3].e,'m-low',1,'Cụm 4 âm tiết/từ lặp lại '+v.length+' lần')));
+      F.push({group:'rep',level:'low',title:'Cụm từ lặp lại nguyên văn',count:chosen.reduce((t,c)=>t+c[1].length,0),pts:Math.min(10,chosen.length*2),
+        desc:'Các cụm 4 từ/âm tiết xuất hiện từ 3 lần trở lên. Lặp diễn đạt là dấu hiệu của văn "máy móc", nhưng cũng gặp ở bài viết vụng hoặc chủ đề hẹp.',
+        samples:chosen.map(([k,v])=>'"'+k+'" × '+v.length)});
+    }
+    if (words>=200){
+      const freq=new Map(); T.forEach(x=>{ if(!STOP.has(x.w)&&x.w.length>=4) freq.set(x.w,(freq.get(x.w)||0)+1); });
+      const top=[...freq.entries()].filter(([,c])=>c>=Math.max(6,Math.round(T.length*0.012))).sort((a,b)=>b[1]-a[1]).slice(0,6);
+      if (top.length) F.push({group:'rep',level:'low',title:'Một số từ xuất hiện dày bất thường',count:top.reduce((t,c)=>t+c[1],0),pts:Math.min(4,top.length),
+        desc:'Từ lặp nhiều hơn 1,2% tổng số từ. Với tiếng Việt, đây là âm tiết nên chỉ mang tính tham khảo.',samples:top.map(([w,c])=>w+' × '+c)});
+    }
+    // cấu trúc câu lặp (khung ngữ pháp)
+    const sp=sentenceSpans(text);
+    if (sp.length>=8){
+      const sk=new Map();
+      sp.forEach(x=>{ const tk=toks(x.t).slice(0,5); if(tk.length<5) return; const key=tk.map(y=>STOP.has(y.w)?y.w:'_').join(' ');
+        if (tk.filter(y=>STOP.has(y.w)).length<2) return; if(!sk.has(key)) sk.set(key,[]); sk.get(key).push(x); });
+      const rs=[...sk.entries()].filter(([,v])=>v.length>=3).sort((a,b)=>b[1].length-a[1].length);
+      if (rs.length){
+        const n=rs.reduce((t,r)=>t+r[1].length,0);
+        rs.forEach(([k,v])=>v.forEach(x=>{ const tk=toks(x.t); const st=x.s+x.t.length*0; addMark(marks,x.s+(text.slice(x.s,x.e).indexOf(x.t)),x.s+(text.slice(x.s,x.e).indexOf(x.t))+tk[4].e,'m-low',1,'Khung câu lặp: '+k); }));
+        F.push({group:'rep',level:'low',title:'Nhiều câu cùng một khung cấu trúc',count:n,pts:n/sp.length>=0.25?7:4,
+          desc:n+'/'+sp.length+' câu có cùng "khung" (từ chức năng giữ nguyên, từ nội dung thay bằng _) ở 5 từ đầu: dấu hiệu viết theo khuôn.',samples:rs.slice(0,4).map(([k,v])=>k+'  × '+v.length+'  vd: '+v[0].t.slice(0,60))});
+      }
+      const tri=[...text.matchAll(/[^,;.\n]{2,40},[^,;.\n]{2,40},?[ \t]+(?:và|and|hoặc|or)[ \t]+[^,;.\n]{2,40}/g)];
+      if (tri.length>=3 && tri.length/sp.length>=0.15){
+        F.push({group:'rep',level:'low',title:'Hay liệt kê theo bộ ba "A, B và C"',count:tri.length,pts:4,desc:'Quy tắc "bộ ba" xuất hiện trong '+Math.round(tri.length/sp.length*100)+'% số câu. Văn AI rất hay liệt kê đúng 3 ý.',samples:tri.slice(0,3).map(m=>m[0].trim().slice(0,80))});
       }
     }
+    const paras=text.split(/\n\s*\n/).map(countWords).filter(n=>n>=10);
+    if (paras.length>=5){ const {m,sd}=stdev(paras); if (sd/m<0.25) F.push({group:'rep',level:'low',title:'Các đoạn dài gần như bằng nhau',count:paras.length,pts:4,desc:'Độ dài đoạn rất đều (CV '+(sd/m).toFixed(2)+'). Người viết tự nhiên thường dài ngắn không đều.',samples:[]}); }
   }
 
-  // 4) Thông tin tệp Word
-  const metaInfo = extra.meta ? analyzeMeta(extra.meta, words) : null;
-  if (metaInfo) for (const fl of metaInfo.flags) F.push({group:'info', level:'mid', title:fl.t, count:1, pts:0, desc:fl.d, samples:[]});
+  // 6) Thống kê câu
+  if (words>=150){
+    const sp=sentenceSpans(text);
+    if (sp.length>=8){
+      const lens=sp.map(x=>countWords(x.t)), {m,sd}=stdev(lens), cv=sd/m;
+      F.push({group:'stat',level:'low',title:'Độ dài câu: TB '+m.toFixed(1)+' từ, độ lệch '+sd.toFixed(1)+' (CV '+cv.toFixed(2)+')',count:sp.length,pts:cv<0.35?8:0,
+        desc:cv<0.35?'Các câu dài gần như bằng nhau. Người viết tự nhiên thường lúc dài lúc ngắn. Chỉ là gợi ý yếu.':'Độ biến thiên độ dài câu ở mức bình thường.',samples:[]});
+      const open={}; sp.forEach(x=>{ const k=x.t.toLowerCase().split(/\s+/).slice(0,2).join(' '); open[k]=(open[k]||0)+1; });
+      const top=Object.entries(open).sort((a,b)=>b[1]-a[1])[0];
+      if (top && top[1]/sp.length>=0.2 && top[1]>=3) F.push({group:'rep',level:'low',title:'Nhiều câu mở đầu giống nhau',count:top[1],pts:5,desc:'"'+top[0]+'" mở đầu '+top[1]+'/'+sp.length+' câu.',samples:[]});
+    }
+  }
 
-  const sum = g => Math.min(100, F.filter(x=>g.includes(x.group)).reduce((t,x)=>t+x.pts,0));
-  F.sort((a,b)=>LV[b.level]-LV[a.level] || b.count-a.count);
-  return {words, chars:text.length, findings:F, marks, hiddenScore:sum(['hidden']), aiScore:sum(['ai','stat']), metaInfo};
+  // 7) Giọng văn & phong cách không nhất quán
+  const nfc=text.normalize('NFC');
+  const oldS=[...nfc.matchAll(/(?:(?<![qQ])u[ỳýỷỹỵ]|o[àáảãạèéẻẽẹ])(?![\p{L}])/giu)].map(m=>m[0]);
+  const newS=[...nfc.matchAll(/(?:[òóỏõọ][ae]|[ùúủũụ]y)(?![\p{L}])/giu)].map(m=>m[0]);
+  if (oldS.length && newS.length) F.push({group:'style',level:'low',title:'Kiểu đặt dấu thanh không nhất quán (hòa / hoà)',count:oldS.length+newS.length,pts:4,
+    desc:'Cùng một văn bản có cả kiểu cũ ('+[...new Set(oldS)].slice(0,3).join(', ')+') lẫn kiểu mới ('+[...new Set(newS)].slice(0,3).join(', ')+'). Thường do ghép từ nhiều nguồn/công cụ khác nhau.',samples:[]});
+  if (/[“”]/.test(text) && /"[^"\n]+"/.test(text)) F.push({group:'style',level:'low',title:'Trộn dấu nháy thẳng và dấu nháy cong',count:1,pts:2,desc:'Cho thấy văn bản ghép từ nhiều nguồn (Word, web, chatbot).',samples:[]});
+  const pron={tôi:0,mình:0,em:0,tớ:0};
+  T.forEach(x=>{ if (x.w in pron) pron[x.w]++; });
+  const pr=Object.entries(pron).filter(([,c])=>c>=2);
+  if (pr.length>=2) F.push({group:'style',level:'low',title:'Xưng hô ngôi thứ nhất không nhất quán',count:pr.reduce((t,c)=>t+c[1],0),pts:2,desc:'Dùng lẫn '+pr.map(([k,c])=>k+' ×'+c).join(', ')+'. Có thể là nhiều người viết/nhiều nguồn, hoặc chỉ là cách viết.',samples:[]});
+  if (words>=400){
+    const ch=chunkByWords(text,120);
+    if (ch.length>=4){
+      const feats=ch.map(c=>{ const s=sentenceSpans(c.t), tk=toks(c.t), n=Math.max(tk.length,1);
+        return [ s.length? s.reduce((t,x)=>t+countWords(x.t),0)/s.length : 0,
+                 s.length? (c.t.match(/,/g)||[]).length/s.length : 0,
+                 tk.reduce((t,x)=>t+x.w.length,0)/n,
+                 tk.filter(x=>STOP.has(x.w)).length/n*100,
+                 (c.t.match(/[!?]/g)||[]).length/n*100,
+                 (c.t.match(RE_FORMAL)||[]).length/n*100 - (c.t.match(RE_INFORMAL)||[]).length/n*100 ]; });
+      const names=['độ dài câu','số dấu phẩy/câu','độ dài từ','tỉ lệ từ chức năng','dấu !?','mức trang trọng'];
+      const dev=ch.map(()=>[]);
+      for (let f=0;f<names.length;f++){
+        const col=feats.map(x=>x[f]), md=median(col), mad=median(col.map(x=>Math.abs(x-md))), sc=Math.max(1.4826*mad,0.15*Math.abs(md),0.3);
+        col.forEach((x,i)=>{ if (Math.abs(x-md)/sc>3.5) dev[i].push(names[f]); });
+      }
+      const bad=ch.map((c,i)=>({c,d:dev[i]})).filter(x=>x.d.length>=2);
+      if (bad.length){
+        bad.forEach(x=>addMark(marks,x.c.s,Math.min(x.c.e,x.c.s+140),'m-mid',2,'Đoạn này khác phong cách các đoạn còn lại: '+x.d.join(', ')));
+        F.push({group:'style',level:'mid',title:'Có đoạn phong cách khác hẳn phần còn lại',count:bad.length,pts:Math.min(12,6*bad.length),
+          desc:'Phát hiện '+bad.length+' đoạn (~120 từ) lệch rõ ở nhiều chỉ số cùng lúc. Dấu hiệu ghép nhiều nguồn/tác giả; được đánh dấu màu vàng ở đầu mỗi đoạn.',
+          samples:bad.map(x=>'"'+x.c.t.slice(0,50).replace(/\n/g,' ')+'…" lệch: '+x.d.join(', '))});
+      }
+      const reg=ch.map(c=>({c,f:(c.t.match(RE_FORMAL)||[]).length/Math.max(countWords(c.t),1)*100,i:(c.t.match(RE_INFORMAL)||[]).length/Math.max(countWords(c.t),1)*100}));
+      if (reg.some(x=>x.f>=2.5) && reg.some(x=>x.i>=2)) F.push({group:'style',level:'low',title:'Lúc trang trọng, lúc suồng sã',count:reg.filter(x=>x.f>=2.5||x.i>=2).length,pts:4,desc:'Có đoạn dùng nhiều từ trang trọng (đồng thời, nhằm, do đó…) xen với đoạn dùng nhiều từ khẩu ngữ (nhé, nha, kiểu như…).',samples:[]});
+    }
+  }
+  if ((extra.fonts||[]).length){
+    const tot={}; extra.fonts.forEach(r=>{ tot[r.font]=(tot[r.font]||0)+(r.e-r.s); });
+    const all=Object.values(tot).reduce((a,b)=>a+b,0), list=Object.entries(tot).sort((a,b)=>b[1]-a[1]);
+    if (list.length>=2 && list[1][1]/all>=0.05){
+      const dom=list[0][0]; extra.fonts.filter(r=>r.font!==dom&&r.e-r.s>=60).forEach(r=>addMark(marks,r.s,r.e,'m-mid',2,'Phông chữ khác: '+r.font));
+      F.push({group:'style',level:'mid',title:'Nhiều phông chữ trong cùng một bài Word',count:list.length,pts:5,
+        desc:'Văn bản dán từ nơi khác (kể cả chatbot) thường mang theo phông riêng. Được đánh dấu màu vàng.',samples:list.map(([f,n])=>f+': '+Math.round(n/all*100)+'%')});
+    }
+  }
+
+  // 8) Thuật ngữ AI (chỉ để tham khảo)
+  const tm=[...text.matchAll(AI_TERM_CI),...text.matchAll(AI_TERM_CS)];
+  if (tm.length){
+    tm.forEach(m=>addMark(marks,m.index,m.index+m[0].length,'m-low',1,'Thuật ngữ về AI'));
+    const dens=tm.length/Math.max(words,1)*1000;
+    F.push({group:'term',level:'low',title:'Thuật ngữ thông dụng về trí tuệ nhân tạo',count:tm.length,pts:dens>=5?3:0,
+      desc:'Mật độ '+dens.toFixed(1)+'/1000 từ. Chỉ đáng ngờ nếu chủ đề bài KHÔNG liên quan đến AI; nếu bài viết về AI thì đây là chuyện bình thường.',
+      samples:[...new Set(tm.map(m=>m[0]))].slice(0,10)});
+  }
+
+  // 9) Nguồn cần kiểm chứng
+  const urls=[...new Set(text.match(/https?:\/\/[^\s)\]>"'】]+/g)||[])], dois=[...new Set(text.match(/\b10\.\d{4,9}\/[^\s"<>)]+/g)||[])];
+  const cites=[...new Set([...text.matchAll(/\(([A-ZÀ-Ỹ][\p{L}\-]+(?: et al\.?| và [A-ZÀ-Ỹ][\p{L}]+| & [A-Z][\p{L}]+)?),? ?(?:19|20)\d{2}[a-z]?\)/gu)].map(m=>m[0]))];
+  if (urls.length+dois.length+cites.length) F.push({group:'info',level:'low',title:'Nguồn/trích dẫn cần kiểm chứng thủ công',count:urls.length+dois.length+cites.length,pts:0,
+    desc:'AI hay bịa tài liệu tham khảo trông rất thật. Hãy mở từng link/DOI và tra từng tác giả để xác nhận có tồn tại.',samples:[...urls,...dois,...cites].slice(0,12)});
+
+  // 10) Đối chiếu văn bản mẫu
+  let ref=null;
+  if (extra.ref && countWords(extra.ref)>=80){
+    ref=compareRef(text,extra.ref);
+    ref.chunks.filter(c=>c.flag).forEach(c=>addMark(marks,c.s,Math.min(c.e,c.s+140),'m-strong',3,'Đoạn này lệch phong cách so với văn bản mẫu của tác giả (độ giống '+c.sim.toFixed(2)+')'));
+    F.push({group:'ref',level:ref.band&&ref.band[0]==='bad'?'strong':ref.band&&ref.band[0]==='warn'?'mid':'low',
+      title:ref.band?ref.band[1]+' (tỉ lệ '+(ref.ratio*100).toFixed(0)+'% so với mức tự nhiên của chính mẫu)':'Chưa đủ mẫu để kết luận',count:ref.chunks.filter(c=>c.flag).length,pts:0,
+      desc:'Độ giống tổng '+ref.sim.toFixed(3)+' (ký tự '+ref.sim3.toFixed(3)+', từ chức năng '+ref.simF.toFixed(3)+')'+(ref.baseline?', mức nền khi so hai nửa của chính mẫu '+ref.baseline.toFixed(3):'')+'. '+(ref.warn||'')+' Đoạn lệch nhất được đánh dấu đỏ.',
+      samples:ref.chunks.map((c,i)=>'đoạn '+(i+1)+': '+c.sim.toFixed(3)+(c.flag?'  ← lệch':''))});
+  }
+
+  // 11) Thông tin tệp Word
+  const metaInfo=extra.meta?analyzeMeta(extra.meta,words):null;
+  if (metaInfo) for (const fl of metaInfo.flags) F.push({group:'info',level:'mid',title:fl.t,count:1,pts:0,desc:fl.d,samples:[]});
+
+  const sum=g=>Math.min(100,F.filter(x=>g.includes(x.group)).reduce((t,x)=>t+x.pts,0));
+  const aiG=['ai','rep','list','dash','style','stat','term'];
+  F.sort((a,b)=>LV[b.level]-LV[a.level]||b.count-a.count);
+  const hasStrong=F.some(f=>f.group==='ai'&&f.level==='strong');
+  const groupsOn=new Set(F.filter(f=>aiG.includes(f.group)&&f.pts>0).map(f=>f.group));
+  const conf=hasStrong?'Cao: có dấu vết sao chép trực tiếp từ chatbot':groupsOn.size>=4?'Trung bình: nhiều nhóm tín hiệu độc lập cùng chỉ một hướng':groupsOn.size>=2?'Thấp đến trung bình: mới có 2–3 nhóm tín hiệu yếu':'Thấp: chưa đủ cơ sở';
+  return {words,chars:text.length,findings:F,marks,hiddenScore:sum(['hidden']),aiScore:sum(aiG),metaInfo,ref,conf};
 }
 
 function analyzeMeta(meta, words){
-  const flags = [];
-  const tt = parseInt(meta.TotalTime||'',10);
-  if (!isNaN(tt) && tt<=1 && words>=300)
-    flags.push({t:'Thời gian chỉnh sửa ≈ '+tt+' phút so với '+words+' từ', d:'Bài dài mà gần như không có thời gian soạn thảo trong Word: nhiều khả năng được dán từ nơi khác. Cũng có thể file đã bị lưu lại/chuyển đổi.'});
-  if (meta.created && meta.modified && meta.created===meta.modified && words>=300)
-    flags.push({t:'Ngày tạo trùng ngày sửa cuối', d:'File được tạo và lưu một lần, không có lịch sử chỉnh sửa theo thời gian.'});
-  return {fields:meta, flags};
+  const flags=[], tt=parseInt(meta.TotalTime||'',10);
+  if (!isNaN(tt) && tt<=1 && words>=300) flags.push({t:'Thời gian chỉnh sửa ≈ '+tt+' phút so với '+words+' từ',d:'Bài dài mà gần như không có thời gian soạn thảo trong Word: nhiều khả năng được dán từ nơi khác. Cũng có thể file đã bị lưu lại/chuyển đổi.'});
+  if (meta.created && meta.modified && meta.created===meta.modified && words>=300) flags.push({t:'Ngày tạo trùng ngày sửa cuối',d:'File được tạo và lưu một lần, không có lịch sử chỉnh sửa theo thời gian.'});
+  return {fields:meta,flags};
 }
 
-const CLEAN_GROUPS = new Set(['pua','tag','vs','zw','bidi','fill','rep','ctrl']);
-function cleanText(text){
-  let out = '', removed = 0, idx = 0, prev = 0;
-  const arr = Array.from(text);
-  for (let k=0;k<arr.length;k++){
-    const ch = arr[k], cp = ch.codePointAt(0), next = k+1<arr.length ? arr[k+1].codePointAt(0) : 0;
-    const c = classifyCp(cp, prev, next, idx);
-    if (c && c[0]==='rep' && cp===0xFFFD){ out += ch; }
-    else if (c && CLEAN_GROUPS.has(c[0])){ removed++; }
-    else if (c && c[0]==='sp'){ out += (cp===0x2028||cp===0x2029) ? '\n' : ' '; removed++; }
-    else out += ch;
-    prev = cp; idx += ch.length;
-  }
-  const nfc = out.normalize('NFC');
-  return {text:nfc, removed:removed + (nfc!==out?1:0)};
-}
+/* ================= LÀM SẠCH CHÍNH XÁC (chỉ chạm vào dấu AI) ================= */
+const CLEAN_GROUPS = new Set(['pua','tag','vs','zw','bidi','fill','ctrl','rep']);
+const DEFAULT_OPTS = {hg:true, hid:true, sp:true, cit:true, mdBold:true, mdHead:true, mdFence:true, dash:true, dashMode:' - ', chat:false, emoji:false, mdBullet:false, hidw:false, nfc:false};
+const HG_MAP={'а':'a','е':'e','о':'o','р':'p','с':'c','у':'y','х':'x','і':'i','ј':'j','ѕ':'s','ԁ':'d','һ':'h','ɡ':'g','А':'A','В':'B','Е':'E','К':'K','М':'M','Н':'H','О':'O','Р':'P','С':'C','Т':'T','Х':'X','У':'Y','І':'I','Ј':'J','Ѕ':'S','ο':'o','ν':'v','Ο':'O','Α':'A','Β':'B','Ε':'E','Ζ':'Z','Η':'H','Ι':'I','Κ':'K','Μ':'M','Ν':'N','Ρ':'P','Τ':'T','Υ':'Y','Χ':'X'};
+const CAT_ORDER = ['hg','hid','sp','cit','chat','hidw','mdBold','mdHead','mdFence','mdBullet','emoji','dash','nfc'];
 
-/* ----- đọc .docx không cần thư viện ----- */
-async function inflateRaw(u8){
-  const ds = new DecompressionStream('deflate-raw');
-  const stream = new Blob([u8]).stream().pipeThrough(ds);
-  return new Uint8Array(await new Response(stream).arrayBuffer());
+function buildEdits(text, o, extra){
+  extra = extra||{};
+  const raw = {}; CAT_ORDER.forEach(c=>raw[c]=[]);
+  const add=(cat,s,e,repl)=>{ if (e>s || repl) { if (text.slice(s,e)!==repl) raw[cat].push({s,e,repl,cat}); } };
+  // homoglyph: chữ Cyrillic/Greek giả dạng chữ Latin trong từ Latin
+  for (const m of text.matchAll(/[\p{L}\p{M}\p{N}]+/gu)){ const w=m[0]; if (/\p{Script=Latin}/u.test(w) && /[\p{Script=Cyrillic}\p{Script=Greek}]/u.test(w)){ let i=0; for (const ch of w){ if (HG_MAP[ch]) add('hg',m.index+i,m.index+i+ch.length,HG_MAP[ch]); i+=ch.length; } } }
+  // ký tự ẩn / khoảng trắng
+  { const arr=Array.from(text); let idx=0, prev=0;
+    for (let k=0;k<arr.length;k++){ const ch=arr[k], cp=ch.codePointAt(0), next=k+1<arr.length?arr[k+1].codePointAt(0):0, c=classifyCp(cp,prev,next,idx);
+      if (c){ if (c[0]==='rep'&&cp===0xFFFD){} else if (CLEAN_GROUPS.has(c[0])) add('hid',idx,idx+ch.length,''); else if (c[0]==='sp') add('sp',idx,idx+ch.length,(cp===0x2028||cp===0x2029)?'\n':' '); }
+      prev=cp; idx+=ch.length; } }
+  // mã trích dẫn
+  for (const m of text.matchAll(RE_CITE_GPT)) add('cit',m.index,m.index+m[0].length,'');
+  for (const m of text.matchAll(RE_CITE_GEM)) add('cit',m.index,m.index+m[0].length,'');
+  for (const m of text.matchAll(/([?&])utm_source=(?:chatgpt\.com|openai|copilot\.com|perplexity)(&?)/gi)){
+    const rp = (m[1]==='?'&&m[2]==='&')?'?':(m[1]==='&'&&m[2]==='&')?'&':''; add('cit',m.index,m.index+m[0].length,rp); }
+  // câu chatbot (xoá nguyên câu)
+  for (const re of [RE_PLEASE, RE_SELF]) for (const m of text.matchAll(new RegExp(re.source,re.flags))){
+    let s=m.index; while (s>0 && !/[.!?…\n]/.test(text[s-1])) s--;
+    let e=m.index+m[0].length; while (e<text.length && !/[.!?…\n]/.test(text[e])) e++; if (e<text.length && text[e]!=='\n') e++;
+    while (s<e && /[ \t]/.test(text[s])) s++; while (e<text.length && /[ \t]/.test(text[e])) e++;
+    add('chat',s,e,''); }
+  for (const h of (extra.hidden||[])) add('hidw',h.s,h.e,'');
+  // Markdown
+  for (const m of text.matchAll(RE_MD_BOLD)){ add('mdBold',m.index,m.index+2,''); add('mdBold',m.index+m[0].length-2,m.index+m[0].length,''); }
+  for (const m of text.matchAll(RE_MD_HEAD)) add('mdHead',m.index,m.index+m[0].length,'');
+  for (const re of [RE_MD_FENCE,RE_MD_HR,RE_MD_TBL]) for (const m of text.matchAll(re)) add('mdFence',m.index,m.index+m[0].length,'');
+  for (const m of text.matchAll(/^([ \t]*)[-*][ \t]+(?=\S)/gm)) add('mdBullet',m.index+m[1].length,m.index+m[0].length,'• ');
+  for (const m of text.matchAll(RE_EMOJI_BUL)){ const ws=m[0].match(/^[ \t]*/)[0]; add('emoji',m.index+ws.length,m.index+m[0].length,''); }
+  for (const m of text.matchAll(DASH_RE)) add('dash',m.index,m.index+m[0].length,o.dashMode===''?'':o.dashMode);
+  for (const m of text.matchAll(/\p{L}[̀-ͯ]+/gu)){ const n=m[0].normalize('NFC'); add('nfc',m.index,m.index+m[0].length,n); }
+  const potential={}; CAT_ORDER.forEach(c=>potential[c]=raw[c].length);
+  // chọn các nhóm bật, ưu tiên theo CAT_ORDER, bỏ chỗ chồng lấn
+  const taken=new Uint8Array(text.length+1), edits=[];
+  for (const c of CAT_ORDER){ if (!o[c]) continue;
+    for (const ed of raw[c]){ let ok=true; for (let i=ed.s;i<Math.max(ed.e,ed.s+1);i++) if (taken[i]){ ok=false;break; } if (!ok) continue; for (let i=ed.s;i<Math.max(ed.e,ed.s+1);i++) taken[i]=1; edits.push(ed); } }
+  edits.sort((a,b)=>a.s-b.s);
+  return {edits, potential};
 }
+function applyEdits(text, edits){ let out='',pos=0; for (const e of edits){ out+=text.slice(pos,e.s)+e.repl; pos=e.e; } return out+text.slice(pos); }
+
+/* ================= ĐỌC / GHI .docx ================= */
+async function inflateRaw(u8){ const s=new Blob([u8]).stream().pipeThrough(new DecompressionStream('deflate-raw')); return new Uint8Array(await new Response(s).arrayBuffer()); }
+async function deflateRaw(u8){ const s=new Blob([u8]).stream().pipeThrough(new CompressionStream('deflate-raw')); return new Uint8Array(await new Response(s).arrayBuffer()); }
+const CRC_T=(()=>{ const t=new Uint32Array(256); for (let n=0;n<256;n++){ let c=n; for (let k=0;k<8;k++) c=c&1?0xEDB88320^(c>>>1):c>>>1; t[n]=c>>>0; } return t; })();
+function crc32(u8){ let c=0xFFFFFFFF; for (let i=0;i<u8.length;i++) c=CRC_T[(c^u8[i])&255]^(c>>>8); return (c^0xFFFFFFFF)>>>0; }
+
 async function unzip(buf){
-  const u8 = new Uint8Array(buf), dv = new DataView(buf), files = {};
-  let e = u8.length - 22;
-  while (e>=0 && dv.getUint32(e,true)!==0x06054b50) e--;
+  const u8=new Uint8Array(buf), dv=new DataView(u8.buffer,u8.byteOffset,u8.byteLength), files={}, order=[];
+  let e=u8.length-22; while (e>=0 && dv.getUint32(e,true)!==0x06054b50) e--;
   if (e<0) throw new Error('Không phải file zip/docx hợp lệ');
-  const n = dv.getUint16(e+10,true); let p = dv.getUint32(e+16,true);
+  const n=dv.getUint16(e+10,true); let p=dv.getUint32(e+16,true);
   for (let i=0;i<n;i++){
     if (dv.getUint32(p,true)!==0x02014b50) break;
-    const method = dv.getUint16(p+10,true), csize = dv.getUint32(p+20,true);
-    const nl = dv.getUint16(p+28,true), el = dv.getUint16(p+30,true), cl = dv.getUint16(p+32,true), off = dv.getUint32(p+42,true);
-    const name = new TextDecoder().decode(u8.subarray(p+46,p+46+nl));
-    files[name] = {method, csize, off}; p += 46+nl+el+cl;
+    const nl=dv.getUint16(p+28,true), el=dv.getUint16(p+30,true), cl=dv.getUint16(p+32,true);
+    const name=new TextDecoder().decode(u8.subarray(p+46,p+46+nl));
+    files[name]={method:dv.getUint16(p+10,true),time:dv.getUint16(p+12,true),date:dv.getUint16(p+14,true),crc:dv.getUint32(p+16,true),csize:dv.getUint32(p+20,true),usize:dv.getUint32(p+24,true),off:dv.getUint32(p+42,true),name};
+    order.push(name); p+=46+nl+el+cl;
   }
-  const read = async name => {
-    const f = files[name]; if(!f) return null;
-    const ln = dv.getUint16(f.off+26,true), le = dv.getUint16(f.off+28,true);
-    const data = u8.subarray(f.off+30+ln+le, f.off+30+ln+le+f.csize);
-    const raw = f.method===0 ? data : await inflateRaw(data);
-    return new TextDecoder('utf-8',{ignoreBOM:true}).decode(raw);
-  };
-  return {read, names:Object.keys(files)};
+  const rawOf=name=>{ const f=files[name], ln=dv.getUint16(f.off+26,true), le=dv.getUint16(f.off+28,true); return u8.subarray(f.off+30+ln+le,f.off+30+ln+le+f.csize); };
+  const read=async name=>{ const f=files[name]; if(!f) return null; const d=rawOf(name); return new TextDecoder('utf-8',{ignoreBOM:true}).decode(f.method===0?d:await inflateRaw(d)); };
+  return {read,rawOf,files,order};
 }
-const xmlDec = s => s.replace(/&#x([0-9a-f]+);/gi,(_,h)=>String.fromCodePoint(parseInt(h,16))).replace(/&#(\d+);/g,(_,d)=>String.fromCodePoint(+d))
-  .replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&apos;/g,"'").replace(/&amp;/g,'&');
-const tagVal = (xml, tag) => { const m = xml && xml.match(new RegExp('<'+tag+'[^>]*>([\\s\\S]*?)</'+tag+'>')); return m ? xmlDec(m[1]) : ''; };
+const xmlDec = s => s.replace(/&#x([0-9a-f]+);/gi,(_,h)=>String.fromCodePoint(parseInt(h,16))).replace(/&#(\d+);/g,(_,d)=>String.fromCodePoint(+d)).replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&apos;/g,"'").replace(/&amp;/g,'&');
+const xmlEnc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const tagVal=(xml,tag)=>{ const m=xml&&xml.match(new RegExp('<'+tag+'[^>]*>([\\s\\S]*?)</'+tag+'>')); return m?xmlDec(m[1]):''; };
 
 async function parseDocx(buf){
-  const z = await unzip(buf);
-  const doc = await z.read('word/document.xml');
+  const z=await unzip(buf), doc=await z.read('word/document.xml');
   if (!doc) throw new Error('Không tìm thấy word/document.xml');
-  let text = '', hidden = [];
-  const paras = doc.match(/<w:p[ >][\s\S]*?<\/w:p>/g) || [];
-  for (const p of paras){
-    const runs = p.match(/<w:r[ >][\s\S]*?<\/w:r>/g) || [];
-    for (const r of runs){
-      let rt = '';
-      for (const m of r.matchAll(/<w:t(?:\s[^>]*)?>([\s\S]*?)<\/w:t>|<w:tab\s*\/>|<w:br[^>]*\/>/g))
-        rt += m[0].startsWith('<w:tab') ? '\t' : m[0].startsWith('<w:br') ? '\n' : xmlDec(m[1]);
+  let text='', hidden=[], fonts=[], tNodes=[];
+  for (const pm of doc.matchAll(/<w:p[ >][\s\S]*?<\/w:p>/g)){
+    const p=pm[0];
+    for (const rm of p.matchAll(/<w:r[ >][\s\S]*?<\/w:r>/g)){
+      const r=rm[0], runStart=text.length; let rt='';
+      for (const m of r.matchAll(/<w:t(?:\s[^>]*)?>([\s\S]*?)<\/w:t>|<w:tab\s*\/>|<w:br[^>]*\/>/g)){
+        if (m[0].startsWith('<w:tab')){ rt+='\t'; text+='\t'; }
+        else if (m[0].startsWith('<w:br')){ rt+='\n'; text+='\n'; }
+        else {
+          const dec=xmlDec(m[1]), abs=pm.index+rm.index+m.index, cs=abs+m[0].indexOf('>')+1;
+          tNodes.push({ts:text.length,te:text.length+dec.length,tagStart:abs,xs:cs,xe:cs+m[1].length,tag:m[0].slice(0,m[0].indexOf('>')+1)});
+          rt+=dec; text+=dec;
+        }
+      }
       if (!rt) continue;
-      const rpr = (r.match(/<w:rPr>[\s\S]*?<\/w:rPr>/)||[''])[0];
-      let reason = '';
-      if (/<w:(?:vanish|specVanish)\s*\/>|<w:vanish w:val="(?:1|true|on)"/.test(rpr)) reason = 'chữ ẩn (Hidden)';
-      else if (/<w:color w:val="FFFFFF"/i.test(rpr)) reason = 'chữ màu trắng';
-      else { const sz = rpr.match(/<w:sz w:val="(\d+)"/); if (sz && +sz[1]<=4) reason = 'cỡ chữ ≤ 2pt'; }
-      if (reason && rt.trim()) hidden.push({s:text.length, e:text.length+rt.length, reason});
-      text += rt;
+      const rpr=(r.match(/<w:rPr>[\s\S]*?<\/w:rPr>/)||[''])[0]; let reason='';
+      if (/<w:(?:vanish|specVanish)\s*\/>|<w:vanish w:val="(?:1|true|on)"/.test(rpr)) reason='chữ ẩn (Hidden)';
+      else if (/<w:color w:val="FFFFFF"/i.test(rpr)) reason='chữ màu trắng';
+      else { const sz=rpr.match(/<w:sz w:val="(\d+)"/); if (sz && +sz[1]<=4) reason='cỡ chữ ≤ 2pt'; }
+      if (reason && rt.trim()) hidden.push({s:runStart,e:text.length,reason});
+      const fm=rpr.match(/<w:rFonts [^>]*w:ascii="([^"]+)"/); if (rt.trim()) fonts.push({s:runStart,e:text.length,font:fm?fm[1]:'(mặc định)'});
     }
-    text += '\n';
+    text+='\n';
   }
-  const core = await z.read('docProps/core.xml'), app = await z.read('docProps/app.xml');
-  const meta = {
-    'Người tạo': tagVal(core,'dc:creator'), 'Người sửa cuối': tagVal(core,'cp:lastModifiedBy'),
-    'Ngày tạo': tagVal(core,'dcterms:created'), 'Ngày sửa cuối': tagVal(core,'dcterms:modified'),
-    'Số lần lưu (revision)': tagVal(core,'cp:revision'), 'Phần mềm': tagVal(app,'Application'),
-    'Tổng phút chỉnh sửa': tagVal(app,'TotalTime'), 'Công ty': tagVal(app,'Company')
-  };
-  meta.TotalTime = meta['Tổng phút chỉnh sửa']; meta.created = meta['Ngày tạo']; meta.modified = meta['Ngày sửa cuối'];
-  return {text, hidden, meta};
+  const core=await z.read('docProps/core.xml'), app=await z.read('docProps/app.xml');
+  const meta={'Người tạo':tagVal(core,'dc:creator'),'Người sửa cuối':tagVal(core,'cp:lastModifiedBy'),'Ngày tạo':tagVal(core,'dcterms:created'),'Ngày sửa cuối':tagVal(core,'dcterms:modified'),
+    'Số lần lưu (revision)':tagVal(core,'cp:revision'),'Phần mềm':tagVal(app,'Application'),'Tổng phút chỉnh sửa':tagVal(app,'TotalTime'),'Công ty':tagVal(app,'Company')};
+  meta.TotalTime=meta['Tổng phút chỉnh sửa']; meta.created=meta['Ngày tạo']; meta.modified=meta['Ngày sửa cuối'];
+  return {text,hidden,fonts,meta,tNodes,docXml:doc};
+}
+
+// Ghi lại .docx: chỉ sửa chữ bên trong các thẻ <w:t>, mọi định dạng khác giữ nguyên byte
+async function buildDocx(buf, parsed, edits){
+  const z=await unzip(buf), per=new Map(); let skipped=0, applied=0;
+  for (const ed of edits){
+    const nd=parsed.tNodes.findIndex(n=>ed.s>=n.ts && ed.e<=n.te && (ed.e>ed.s || ed.s<n.te));
+    if (nd<0){ skipped++; continue; } if(!per.has(nd)) per.set(nd,[]); per.get(nd).push(ed); applied++;
+  }
+  let xml=parsed.docXml;
+  for (const nd of [...per.keys()].sort((a,b)=>b-a)){
+    const n=parsed.tNodes[nd], orig=parsed.docXml; // đọc theo vị trí gốc
+    let txt=''; let pos=n.ts; const base=parsed._text;
+    for (const ed of per.get(nd).sort((a,b)=>a.s-b.s)){ txt+=base.slice(pos,ed.s)+ed.repl.replace(/\n/g,' '); pos=ed.e; } txt+=base.slice(pos,n.te);
+    let tag=n.tag; if (!/xml:space/.test(tag) && (/^\s|\s$|\s\s/.test(txt))) tag=tag.replace(/>$/,' xml:space="preserve">');
+    xml=xml.slice(0,n.tagStart)+tag+xmlEnc(txt)+xml.slice(n.xe);
+  }
+  const newDoc=new TextEncoder().encode(xml);
+  const comp=await deflateRaw(newDoc);
+  const parts=[], cd=[]; let off=0;
+  const w16=(a,v)=>a.push(v&255,(v>>8)&255), w32=(a,v)=>a.push(v&255,(v>>8)&255,(v>>16)&255,(v>>>24)&255);
+  for (const name of z.order){
+    const f=z.files[name], nameB=new TextEncoder().encode(name);
+    const isDoc=name==='word/document.xml';
+    const data=isDoc?comp:z.rawOf(name), method=isDoc?8:f.method, crc=isDoc?crc32(newDoc):f.crc, us=isDoc?newDoc.length:f.usize;
+    const lh=[]; w32(lh,0x04034b50); w16(lh,20); w16(lh,0x0800); w16(lh,method); w16(lh,f.time); w16(lh,f.date); w32(lh,crc); w32(lh,data.length); w32(lh,us); w16(lh,nameB.length); w16(lh,0);
+    parts.push(new Uint8Array(lh),nameB,data);
+    const ch=[]; w32(ch,0x02014b50); w16(ch,20); w16(ch,20); w16(ch,0x0800); w16(ch,method); w16(ch,f.time); w16(ch,f.date); w32(ch,crc); w32(ch,data.length); w32(ch,us); w16(ch,nameB.length); w16(ch,0); w16(ch,0); w16(ch,0); w16(ch,0); w32(ch,0); w32(ch,off);
+    cd.push(new Uint8Array(ch),nameB);
+    off+=lh.length+nameB.length+data.length;
+  }
+  const cdLen=cd.reduce((t,a)=>t+a.length,0), end=[]; w32(end,0x06054b50); w16(end,0); w16(end,0); w16(end,z.order.length); w16(end,z.order.length); w32(end,cdLen); w32(end,off); w16(end,0);
+  const all=[...parts,...cd,new Uint8Array(end)], out=new Uint8Array(all.reduce((t,a)=>t+a.length,0)); let q=0; for (const a of all){ out.set(a,q); q+=a.length; }
+  return {bytes:out, applied, skipped};
 }
 
 function bandOf(score, kind){
-  if (kind==='hidden') return score<10 ? ['ok','Không thấy ký tự bất thường'] : score<40 ? ['warn','Có vài ký tự đáng chú ý'] : score<70 ? ['bad','Nhiều ký tự ẩn/lạ'] : ['bad','Rất nhiều ký tự ẩn/lạ'];
-  return score<15 ? ['ok','Chưa thấy dấu hiệu rõ'] : score<40 ? ['warn','Có vài dấu hiệu nhẹ'] : score<70 ? ['bad','Khá nhiều dấu hiệu'] : ['bad','Dấu hiệu rất rõ'];
+  if (kind==='hidden') return score<10?['ok','Không thấy ký tự bất thường']:score<40?['warn','Có vài ký tự đáng chú ý']:['bad','Nhiều ký tự ẩn/lạ'];
+  return score<15?['ok','Chưa thấy dấu hiệu rõ']:score<40?['warn','Có vài dấu hiệu nhẹ']:score<70?['bad','Khá nhiều dấu hiệu']:['bad','Dấu hiệu rất rõ'];
 }
-if (typeof module!=='undefined') module.exports = {analyze, cleanText, parseDocx, classifyCp, bandOf};
+if (typeof module!=='undefined') module.exports={analyze,buildEdits,applyEdits,parseDocx,buildDocx,classifyCp,bandOf,compareRef,DEFAULT_OPTS};
 </script>
 
 <script id="ui">
 /* ================= GIAO DIỆN ================= */
-const $ = id => document.getElementById(id);
-const esc = s => s.replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-let items = [];           // {name,text,extra,res}
-let pasted = null;        // mục từ ô dán
-let sel = 0, timer = null;
+const $=id=>document.getElementById(id);
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let pasted=null, files=[], sel=0, timer=null, tab='A', copts={...DEFAULT_OPTS};
+const SAMPLE='Tóm lại, trí tuệ nhân tạo đóng vai trò quan trọng trong giáo dục hiện đại.​ Không chỉ giúp học sinh tiếp cận tri thức nhanh hơn mà còn góp phần thúc đẩy sự sáng tạo — một yếu tố then chốt — của thế hệ trẻ.\n\n**Lợi ích chính:**\n- **Cá nhân hóa:** học theo nhịp riêng của từng em​\n- **Tiết kiệm thời gian:** giảm công việc lặp lại\n- **Hỗ trợ giáo viên:** chấm bài và phản hồi nhanh\n- **Mở rộng cơ hội:** tiếp cận nhiều nguồn tài liệu\n\nNgoài ra, điều quan trọng cần lưu ý là phải dùng AI một cách có trách nhiệm. Hơn nữa, giáo viên vẫn là trung tâm — không thể thay thế. Cuối cùng, pаper này được viết khá cẩn thận.  Hy vọng thông tin này sẽ giúp ích cho bạn! Hãy cho tôi biết nếu bạn cần thêm ví dụ. 【4:0†nguồn】';
 
-const SAMPLE = 'Tóm lại, trí tuệ nhân tạo đóng vai trò quan trọng trong giáo dục hiện đại.​ Không chỉ giúp học sinh tiếp cận tri thức nhanh hơn mà còn góp phần thúc đẩy sự sáng tạo.\n\n**Lợi ích chính:**\n- Cá nhân hóa việc học​\n- Tiết kiệm thời gian\n\nNgoài ra, điều quan trọng cần lưu ý là phải dùng AI một cách có trách nhiệm. Hơn nữa, giáo viên vẫn là trung tâm. Cuối cùng, pаper này được viết khá cẩn thận.  Hy vọng thông tin này sẽ giúp ích cho bạn! Hãy cho tôi biết nếu bạn cần thêm ví dụ. 【4:0†nguồn】';
+function allItems(){ return (pasted?[pasted]:[]).concat(files); }
+function runPasted(){ const t=$('inp').value; pasted=t.trim()?{name:'Văn bản dán',text:t,extra:{}}:null; invalidate(); }
+function invalidate(){ allItems().forEach(i=>i.res=null); render(); }
+function ensure(){ const refT=$('ref').value; allItems().forEach(i=>{ if(!i.res) i.res=analyze(i.text,{...i.extra,ref:refT}); }); }
 
-function runPasted(){
-  const t = $('inp').value;
-  pasted = t.trim() ? {name:'Văn bản dán', text:t, extra:{}} : null;
-  rebuild();
-}
-function rebuild(){
-  const all = (pasted ? [pasted] : []).concat(items.filter(i=>!i.isPasted));
-  all.forEach(i => { if(!i.res) i.res = analyze(i.text, i.extra); });
-  window._all = all;
-  if (sel >= all.length) sel = 0;
-  render();
-}
 function render(){
-  const all = window._all || [];
-  const box = $('res');
-  if (!all.length){ box.innerHTML = '<div class="empty">Chưa có gì để phân tích. Dán văn bản hoặc thả file ở bên trái.</div>'; return; }
-  const cur = all[sel], r = cur.res;
-  let h = '';
-  if (all.length>1){
-    h += '<div class="items">' + all.map((it,i)=>{
-      const a = bandOf(it.res.aiScore,'ai'), b = bandOf(it.res.hiddenScore,'hidden');
-      return `<div class="item ${i===sel?'sel':''}" data-i="${i}"><span class="nm">${esc(it.name)}</span><span class="pill ${b[0]}">Ẩn/lạ ${it.res.hiddenScore}</span><span class="pill ${a[0]}">AI ${it.res.aiScore}</span></div>`;
-    }).join('') + '</div>';
-  }
-  const bh = bandOf(r.hiddenScore,'hidden'), ba = bandOf(r.aiScore,'ai');
-  const col = k => k==='ok'?'var(--ok)':k==='warn'?'var(--warn)':'var(--bad)';
-  h += '<div class="scores">' +
-    `<div class="score"><div class="lbl">Ký tự ẩn / lạ</div><div class="big" style="color:${col(bh[0])}">${r.hiddenScore}<span class="lbl">/100</span></div><div class="bar"><i style="width:${r.hiddenScore}%;background:${col(bh[0])}"></i></div><div>${bh[1]}</div></div>` +
-    `<div class="score"><div class="lbl">Dấu vết AI</div><div class="big" style="color:${col(ba[0])}">${r.aiScore}<span class="lbl">/100</span></div><div class="bar"><i style="width:${r.aiScore}%;background:${col(ba[0])}"></i></div><div>${ba[1]}</div></div>` +
-    '</div>';
-  h += `<div class="lbl">${r.words.toLocaleString('vi')} từ · ${r.chars.toLocaleString('vi')} ký tự</div>`;
-
-  const groups = [['hidden','Ký tự ẩn / lạ'],['ai','Dấu vết AI'],['stat','Thống kê văn phong'],['info','Thông tin thêm']];
-  let any = false;
-  for (const [g,title] of groups){
-    const fs = r.findings.filter(f=>f.group===g); if(!fs.length) continue; any = true;
-    h += `<h3>${title}</h3>` + fs.map(f=>{
-      const tg = {strong:'Bằng chứng mạnh',mid:'Đáng chú ý',low:'Gợi ý nhẹ'}[f.level];
-      return `<div class="f"><h4><span class="tag ${f.level}">${tg}</span>${esc(f.title)}<span class="lbl">× ${f.count}</span></h4><p>${esc(f.desc)}</p>` +
-        (f.samples && f.samples.length ? `<div class="samples">${f.samples.map(esc).join('<br>')}</div>` : '') + '</div>';
-    }).join('');
-  }
-  if (!any) h += '<h3>Kết quả</h3><div class="f"><p>Không phát hiện dấu hiệu nào theo các quy tắc hiện có. Lưu ý đây không phải bằng chứng văn bản do người viết.</p></div>';
-
-  if (r.metaInfo){
-    h += '<h3>Thông tin file Word</h3><div class="f kv">' + Object.entries(r.metaInfo.fields).filter(([k,v])=>v && !['TotalTime','created','modified'].includes(k)).map(([k,v])=>`<div>${esc(k)}</div><div>${esc(v)}</div>`).join('') + '</div>';
-  }
-  h += '<h3>Văn bản đã đánh dấu</h3><div class="legend"><span><mark class="m-strong" style="background:var(--strong-bg)">mạnh</mark></span><span><mark class="m-mid" style="background:var(--mid-bg)">đáng chú ý</mark></span><span><mark class="m-low" style="background:var(--low-bg)">gợi ý nhẹ</mark></span><span><mark class="m-hid" style="background:var(--hid-bg)">chữ ẩn trong Word</mark></span><span>nhãn U+XXXX = ký tự vô hình</span></div>';
-  h += '<div class="view">' + renderMarked(cur.text, r.marks) + '</div>';
-  box.innerHTML = h;
-  box.querySelectorAll('.item').forEach(el => el.onclick = () => { sel = +el.dataset.i; render(); });
-}
-function renderMarked(text, marks){
-  const LIMIT = 80000, t = text.length>LIMIT ? text.slice(0,LIMIT) : text;
-  const ms = marks.filter(m=>m.s<t.length).sort((a,b)=>b.sev-a.sev || a.s-b.s);
-  const taken = new Uint8Array(t.length), keep = [];
-  for (const m of ms){
-    const e = Math.min(m.e, t.length); let ok = true;
-    for (let i=m.s;i<e;i++) if (taken[i]){ ok=false; break; }
-    if (ok){ for (let i=m.s;i<e;i++) taken[i]=1; keep.push({...m, e}); }
-  }
-  keep.sort((a,b)=>a.s-b.s);
-  let out = '', pos = 0;
-  for (const m of keep){
-    out += esc(t.slice(pos, m.s));
-    if (m.cls==='inv') out += `<span class="inv s${m.sev}" title="${esc(m.tip)}">${hex(m.code)}</span>`;
-    else out += `<mark class="${m.cls}" title="${esc(m.tip)}">${esc(t.slice(m.s,m.e))}</mark>`;
-    pos = m.e;
-  }
-  out += esc(t.slice(pos));
-  if (text.length>LIMIT) out += '\n\n… (chỉ hiển thị 80.000 ký tự đầu; phần phân tích vẫn tính trên toàn bộ văn bản)';
-  return out;
+  const all=allItems(), pane=$('pane');
+  ['A','C','G'].forEach(k=>$('t'+k).classList.toggle('on',tab===k));
+  if (tab==='G'){ pane.innerHTML=guideHtml(); return; }
+  if (!all.length){ pane.innerHTML='<div class="empty">Chưa có gì để phân tích. Dán văn bản hoặc thả file ở bên trái.</div>'; return; }
+  ensure(); if (sel>=all.length) sel=0;
+  let h='';
+  if (all.length>1) h+='<div class="items">'+all.map((it,i)=>{ const a=bandOf(it.res.aiScore,'ai'),b=bandOf(it.res.hiddenScore,'hidden'); return `<div class="item ${i===sel?'sel':''}" data-i="${i}"><span class="nm">${esc(it.name)}</span><span class="pill ${b[0]}">Ẩn/lạ ${it.res.hiddenScore}</span><span class="pill ${a[0]}">AI ${it.res.aiScore}</span></div>`; }).join('')+'</div>';
+  h+= tab==='A'?analysisHtml(all[sel]):cleanHtml(all[sel]);
+  pane.innerHTML=h;
+  pane.querySelectorAll('.item').forEach(el=>el.onclick=()=>{ sel=+el.dataset.i; render(); });
+  if (tab==='C') bindClean();
 }
 
+function analysisHtml(cur){
+  const r=cur.res, bh=bandOf(r.hiddenScore,'hidden'), ba=bandOf(r.aiScore,'ai');
+  const col=k=>k==='ok'?'var(--ok)':k==='warn'?'var(--warn)':'var(--bad)';
+  const box=(t,v,b)=>`<div class="score"><div class="lbl">${t}</div><div class="big" style="color:${col(b[0])}">${v}<span class="lbl">/100</span></div><div class="bar"><i style="width:${v}%;background:${col(b[0])}"></i></div><div>${b[1]}</div></div>`;
+  let h='<div class="scores">'+box('Ký tự ẩn / lạ',r.hiddenScore,bh)+box('Dấu vết AI',r.aiScore,ba);
+  if (r.ref&&r.ref.band) h+=`<div class="score"><div class="lbl">Giống phong cách mẫu</div><div class="big" style="color:${col(r.ref.band[0])}">${Math.round(r.ref.ratio*100)}<span class="lbl">%</span></div><div class="bar"><i style="width:${Math.min(100,r.ref.ratio*100)}%;background:${col(r.ref.band[0])}"></i></div><div>${r.ref.band[1]}</div></div>`;
+  h+='</div>';
+  h+=`<div class="lbl">${r.words.toLocaleString('vi')} từ · ${r.chars.toLocaleString('vi')} ký tự · Độ tin cậy kết luận về AI: <b>${esc(r.conf)}</b></div>`;
+  const groups=[['hidden','Ký tự ẩn / lạ'],['ai','Dấu vết AI trực tiếp'],['rep','Diễn đạt máy móc, lặp từ & cấu trúc câu'],['list','Chia nhỏ ý & bullet point'],['dash','Gạch ngang dài (em-dash)'],['style','Giọng văn & phong cách không nhất quán'],['term','Thuật ngữ về trí tuệ nhân tạo'],['stat','Thống kê câu'],['ref','Đối chiếu với văn bản mẫu của tác giả'],['info','Thông tin thêm']];
+  let any=false;
+  for (const [g,title] of groups){ const fs=r.findings.filter(f=>f.group===g); if(!fs.length) continue; any=true;
+    h+=`<h3>${title}</h3>`+fs.map(f=>`<div class="f"><h4><span class="tag ${f.level}">${{strong:'Bằng chứng mạnh',mid:'Đáng chú ý',low:'Gợi ý nhẹ'}[f.level]}</span>${esc(f.title)}<span class="lbl">× ${f.count}</span></h4><p>${esc(f.desc)}</p>`+(f.samples&&f.samples.length?`<div class="samples">${f.samples.map(esc).join('<br>')}</div>`:'')+'</div>').join(''); }
+  if (!any) h+='<h3>Kết quả</h3><div class="f"><p>Không phát hiện dấu hiệu nào theo các quy tắc hiện có. Lưu ý đây không phải bằng chứng văn bản do người viết.</p></div>';
+  if (r.metaInfo) h+='<h3>Thông tin file Word</h3><div class="f kv">'+Object.entries(r.metaInfo.fields).filter(([k,v])=>v&&!['TotalTime','created','modified'].includes(k)).map(([k,v])=>`<div>${esc(k)}</div><div>${esc(v)}</div>`).join('')+'</div>';
+  h+='<h3>Văn bản đã đánh dấu</h3><div class="legend"><span><mark class="m-strong" style="background:var(--strong-bg)">mạnh</mark></span><span><mark style="background:var(--mid-bg)">đáng chú ý</mark></span><span><mark style="background:var(--low-bg)">gợi ý nhẹ</mark></span><span><mark style="background:var(--hid-bg)">chữ ẩn trong Word</mark></span><span>U+XXXX = ký tự vô hình</span></div><div class="view">'+renderMarked(cur.text,r.marks)+'</div>';
+  return h;
+}
+function renderMarked(text,marks){
+  const LIMIT=80000, t=text.length>LIMIT?text.slice(0,LIMIT):text;
+  const ms=marks.filter(m=>m.s<t.length).sort((a,b)=>b.sev-a.sev||a.s-b.s), taken=new Uint8Array(t.length), keep=[];
+  for (const m of ms){ const e=Math.min(m.e,t.length); let ok=true; for (let i=m.s;i<e;i++) if(taken[i]){ok=false;break;} if(ok){ for(let i=m.s;i<e;i++) taken[i]=1; keep.push({...m,e}); } }
+  keep.sort((a,b)=>a.s-b.s); let out='',pos=0;
+  for (const m of keep){ out+=esc(t.slice(pos,m.s)); out+= m.cls==='inv'?`<span class="inv s${m.sev}" title="${esc(m.tip)}">${hex(m.code)}</span>`:`<mark class="${m.cls}" title="${esc(m.tip)}">${esc(t.slice(m.s,m.e))}</mark>`; pos=m.e; }
+  out+=esc(t.slice(pos)); if (text.length>LIMIT) out+='\n\n… (chỉ hiển thị 80.000 ký tự đầu; phần phân tích tính trên toàn bộ văn bản)'; return out;
+}
+
+/* ----- Tab làm sạch ----- */
+const OPT_DEF=[
+  ['hg','Sửa chữ Cyrillic/Greek giả dạng chữ Latin (vd "pаper" → "paper")','Chỉ sửa trong những từ đã bị trộn chữ'],
+  ['hid','Xoá ký tự ẩn (zero-width, vùng riêng, bidi, điều khiển…)','Không thay đổi hình dạng chữ'],
+  ['sp','Đổi khoảng trắng lạ (NBSP, narrow NBSP…) thành dấu cách thường',''],
+  ['cit','Xoá mã trích dẫn chatbot (【4:0†…】, oai_citation, [cite_start], utm_source=chatgpt…)',''],
+  ['mdBold','Gỡ dấu ** quanh chữ in đậm Markdown (giữ nguyên chữ)',''],
+  ['mdHead','Gỡ dấu # đầu dòng tiêu đề Markdown',''],
+  ['mdFence','Xoá dòng ```, dòng ---, dòng phân cách bảng |---|',''],
+  ['dash','Thay gạch ngang dài (—, " – ", " -- ")','dashSel'],
+  ['chat','Xoá cả câu mở/đóng kiểu chatbot và câu tự nhận là AI','Xoá nội dung, hãy xem kỹ ở bản xem trước'],
+  ['emoji','Bỏ emoji đầu dòng (✅ 🚀 📌…)','Mặc định tắt'],
+  ['mdBullet','Đổi "- " / "* " đầu dòng thành "• "','Mặc định tắt'],
+  ['hidw','Xoá chữ ẩn / chữ trắng trong file Word','Xoá nội dung, mặc định tắt'],
+  ['nfc','Chuẩn hoá dấu tiếng Việt dạng tổ hợp về dạng dựng sẵn (NFC)','Mặc định tắt']
+];
+function cleanHtml(cur){
+  const {edits,potential}=buildEdits(cur.text,copts,cur.extra);
+  const changed=edits.reduce((t,e)=>t+(e.e-e.s),0), kept=cur.text.length-changed;
+  let h='<div class="note" style="margin-top:0">Chỉ những chỗ được liệt kê mới bị đụng tới. Mọi ký tự còn lại giữ nguyên từng byte (kể cả lỗi chính tả, xuống dòng, định dạng).</div>';
+  h+=OPT_DEF.map(([k,t,s])=>`<label class="opt"><input type="checkbox" data-k="${k}" ${copts[k]?'checked':''}><span>${t}${s==='dashSel'?` <select id="dashMode"><option value=" - " ${copts.dashMode===' - '?'selected':''}>→ " - " (gạch nối ngắn)</option><option value=", " ${copts.dashMode===', '?'selected':''}>→ ", " (dấu phẩy)</option><option value="" ${copts.dashMode===''?'selected':''}>→ xoá hẳn</option></select>`:(s?`<small>${s}</small>`:'')}</span><span class="c">${potential[k]} chỗ</span></label>`).join('');
+  h+=`<div class="lbl" style="margin:10px 0">Sẽ sửa <b>${edits.length}</b> chỗ · giữ nguyên <b>${kept.toLocaleString('vi')}/${cur.text.length.toLocaleString('vi')}</b> ký tự (${(kept/Math.max(cur.text.length,1)*100).toFixed(2)}%)</div>`;
+  h+='<div class="btns" style="margin:0 0 10px"><button class="primary" id="bCopy">Sao chép bản đã sửa</button><button id="bTxt">Tải .txt</button><button id="bDocx"'+(cur.buf?'':' disabled title="Chỉ dùng cho file .docx đã thả vào"')+'>Tải .docx đã sửa</button></div>';
+  h+='<div class="legend"><span><del style="background:var(--strong-bg);color:var(--bad)">bị xoá</del></span><span><ins style="background:var(--ins-bg);text-decoration:none">được thay bằng</ins></span></div><div class="view">'+renderDiff(cur.text,edits)+'</div>';
+  return h;
+}
+function renderDiff(text,edits){
+  const LIMIT=80000; let out='',pos=0;
+  for (const e of edits){ if (e.s>LIMIT) break; out+=esc(text.slice(pos,e.s));
+    const old=text.slice(e.s,e.e), shown=Array.from(old).map(ch=>{ const c=classifyCp(ch.codePointAt(0),0,0,1); return c&&c[0]!=='fw'?`<span class="inv s${LV[c[1]]}">${hex(ch.codePointAt(0))}</span>`:esc(ch); }).join('');
+    out+=(old?`<del>${shown}</del>`:'')+(e.repl?`<ins>${esc(e.repl)}</ins>`:''); pos=e.e; }
+  out+=esc(text.slice(pos,LIMIT)); if (text.length>LIMIT) out+='\n… (xem trước 80.000 ký tự đầu, bản tải về/sao chép gồm toàn bộ)'; return out;
+}
+function bindClean(){
+  $('pane').querySelectorAll('input[data-k]').forEach(el=>el.onchange=()=>{ copts[el.dataset.k]=el.checked; render(); });
+  const dm=$('dashMode'); if(dm) dm.onchange=()=>{ copts.dashMode=dm.value; render(); };
+  const cur=allItems()[sel];
+  $('bCopy').onclick=()=>copyTxt(applyEdits(cur.text,buildEdits(cur.text,copts,cur.extra).edits),'Đã sao chép bản đã sửa');
+  $('bTxt').onclick=()=>download(new Blob([applyEdits(cur.text,buildEdits(cur.text,copts,cur.extra).edits)],{type:'text/plain;charset=utf-8'}),cur.name.replace(/\.[^.]+$/,'')+'-da-sua.txt');
+  $('bDocx').onclick=async()=>{ try{ const ed=buildEdits(cur.text,copts,cur.extra).edits; cur.parsed._text=cur.text; const r=await buildDocx(cur.buf,cur.parsed,ed);
+      download(new Blob([r.bytes],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'}),cur.name.replace(/\.docx$/i,'')+'-da-sua.docx');
+      $('msg').textContent='Đã xuất .docx: sửa '+r.applied+' chỗ'+(r.skipped?`, bỏ qua ${r.skipped} chỗ nằm vắt ngang nhiều đoạn chữ (cần sửa tay)`:'')+'. Định dạng, ảnh, bảng giữ nguyên.'; }catch(e){ $('msg').textContent='Không xuất được .docx: '+e.message; } };
+}
+function download(blob,name){ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500); }
+
+/* ----- Tab hướng dẫn ----- */
+function guideHtml(){ return `<div class="f"><h4>Quy trình kiểm tra thật kỹ (không dựa vào một chỉ báo duy nhất)</h4>
+<ol class="g">
+<li><b>Chạy quét tự động</b> ở tab "Phân tích". Đọc nhóm <i>Bằng chứng mạnh</i> trước (mã trích dẫn chatbot, câu tự nhận là AI, ký tự ẩn, chữ ẩn trong Word). Các nhóm "gợi ý nhẹ" chỉ có ý nghĩa khi có nhiều nhóm cùng xuất hiện.</li>
+<li><b>Xem hồ sơ chỉnh sửa của file.</b> Google Docs: Tệp → Lịch sử phiên bản → Xem lịch sử phiên bản. Word/OneDrive: Lịch sử phiên bản. Bài tự viết thường có hàng chục lần chỉnh nhỏ qua nhiều ngày; bài dán từ chatbot thường hiện ra nguyên khối trong một lần.</li>
+<li><b>Đối chiếu với văn bản mẫu</b> chắc chắn do chính người đó viết (ô "Đối chiếu…" bên trái, ≥ 600 từ). Đây là phương pháp phân tích văn phong (stylometry) đáng tin hơn đoán "giống AI hay không". App so sánh với mức dao động tự nhiên của chính mẫu và đánh dấu đoạn lệch nhất.</li>
+<li><b>Kiểm chứng nguồn.</b> Mở từng link/DOI/tác giả mà app liệt kê. AI hay bịa tài liệu tham khảo nghe rất hợp lý nhưng không tồn tại, hoặc số liệu không khớp nguồn.</li>
+<li><b>Hỏi lại tác giả</b> về 3–5 đoạn bất kỳ: vì sao chọn cách lập luận này, giải thích thuật ngữ, ví dụ cá nhân đằng sau. Người tự viết trả lời được chi tiết; đây là bằng chứng mạnh hơn mọi công cụ.</li>
+<li><b>Tìm chỗ thiếu "dấu vân tay" cá nhân:</b> bài chung chung, ví dụ không có tên/địa điểm/số liệu riêng, kết luận tóm tắt lại y nguyên phần mở đầu.</li>
+<li><b>Đừng tin các máy dò AI trực tuyến một mình.</b> Chúng dựa vào xác suất ngôn ngữ, báo nhầm nhiều với tiếng Việt, với người học ngoại ngữ và văn phong học thuật chuẩn. App này không dùng loại đó vì cần mô hình lớn và kết nối mạng.</li>
+<li><b>Kết luận khi có ≥ 3 nguồn bằng chứng độc lập</b> cùng chỉ một hướng (vd: dấu vết sao chép + lịch sử chỉnh sửa + lệch văn phong mẫu + không giải thích được nội dung).</li>
+</ol></div>
+<div class="f"><h4>Nếu bạn là người bị nghi oan</h4><p>Lưu lịch sử phiên bản, bản nháp, ghi chú, file nguồn tham khảo. Dán bài của bạn vào đây để xem có ký tự ẩn nào lẫn vào do copy không, rồi dùng tab "Làm sạch" để xoá đúng những chỗ đó mà không đụng vào chữ của bạn.</p></div>`; }
+
+/* ----- nạp file, nút ----- */
 async function addFiles(list){
-  const msg = $('msg'); msg.textContent = '';
-  for (const f of list){
-    try{
-      const buf = await f.arrayBuffer();
-      if (/\.docx$/i.test(f.name)){
-        const d = await parseDocx(buf);
-        items.push({name:f.name, text:d.text, extra:{hidden:d.hidden, meta:d.meta}});
-      } else if (/\.(pdf|doc|xlsx|pptx)$/i.test(f.name)){
-        msg.textContent += `Chưa đọc được ${f.name}. Hãy lưu thành .docx/.txt hoặc copy chữ rồi dán vào ô bên trái. `;
-      } else {
-        items.push({name:f.name, text:new TextDecoder('utf-8',{ignoreBOM:true}).decode(buf), extra:{}});
-      }
-    }catch(e){ msg.textContent += `Lỗi đọc ${f.name}: ${e.message}. `; }
-  }
-  sel = 0; rebuild();
+  const msg=$('msg'); msg.textContent='';
+  for (const f of list){ try{
+    const buf=await f.arrayBuffer();
+    if (/\.docx$/i.test(f.name)){ const d=await parseDocx(buf); files.push({name:f.name,text:d.text,extra:{hidden:d.hidden,fonts:d.fonts,meta:d.meta},buf,parsed:d}); }
+    else if (/\.(pdf|doc|xlsx|pptx)$/i.test(f.name)) msg.textContent+=`Chưa đọc được ${f.name}. Hãy lưu thành .docx/.txt hoặc copy chữ rồi dán vào ô bên trái. `;
+    else files.push({name:f.name,text:new TextDecoder('utf-8',{ignoreBOM:true}).decode(buf),extra:{}});
+  }catch(e){ msg.textContent+=`Lỗi đọc ${f.name}: ${e.message}. `; } }
+  sel=pasted?1:0; if (sel>=allItems().length) sel=0; render();
 }
-
-function curItem(){ return (window._all||[])[sel]; }
-function showOut(txt, note){
-  const o = $('out'); o.style.display = 'block'; o.value = txt; $('msg').textContent = note;
-}
-async function copyTxt(txt, note){
-  try { await navigator.clipboard.writeText(txt); showOut(txt, note + ' (đã sao chép vào clipboard)'); }
-  catch(e){ showOut(txt, note + '. Trình duyệt chặn sao chép tự động: bấm vào ô dưới, Ctrl+A rồi Ctrl+C.'); $('out').focus(); $('out').select(); }
-}
+function curItem(){ return allItems()[sel]; }
+function showOut(txt,note){ const o=$('out'); o.style.display='block'; o.value=txt; $('msg').textContent=note; }
+async function copyTxt(txt,note){ try{ await navigator.clipboard.writeText(txt); showOut(txt,note+' (đã vào clipboard)'); }catch(e){ showOut(txt,note+'. Trình duyệt chặn sao chép tự động: bấm vào ô dưới, Ctrl+A rồi Ctrl+C.'); $('out').focus(); $('out').select(); } }
 function reportOf(it){
-  const r = it.res, L = [];
-  L.push('BÁO CÁO: ' + it.name, `Ký tự ẩn/lạ: ${r.hiddenScore}/100 (${bandOf(r.hiddenScore,'hidden')[1]})`, `Dấu vết AI: ${r.aiScore}/100 (${bandOf(r.aiScore,'ai')[1]})`, `${r.words} từ, ${r.chars} ký tự`, '');
-  r.findings.forEach(f => L.push(`[${{strong:'MẠNH',mid:'ĐÁNG CHÚ Ý',low:'NHẸ'}[f.level]}] ${f.title} ×${f.count}` + (f.samples&&f.samples.length ? '\n    ' + f.samples.join('\n    ') : '')));
-  L.push('', 'Lưu ý: kết quả chỉ là bằng chứng gợi ý, không đủ để kết luận ai là tác giả.');
-  return L.join('\n');
+  const r=it.res, L=['BÁO CÁO: '+it.name,`Ký tự ẩn/lạ: ${r.hiddenScore}/100 (${bandOf(r.hiddenScore,'hidden')[1]})`,`Dấu vết AI: ${r.aiScore}/100 (${bandOf(r.aiScore,'ai')[1]}) · Độ tin cậy: ${r.conf}`,`${r.words} từ, ${r.chars} ký tự`,''];
+  r.findings.forEach(f=>L.push(`[${{strong:'MẠNH',mid:'ĐÁNG CHÚ Ý',low:'NHẸ'}[f.level]}] ${f.title} ×${f.count}`+(f.samples&&f.samples.length?'\n    '+f.samples.join('\n    '):'')));
+  L.push('','Lưu ý: kết quả chỉ là bằng chứng gợi ý, không đủ để kết luận ai là tác giả.'); return L.join('\n');
 }
-
-$('inp').addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(runPasted, 350); });
-$('fi').addEventListener('change', e => { addFiles([...e.target.files]); e.target.value=''; });
-const dz = $('drop');
-['dragenter','dragover'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.add('over'); }));
-['dragleave','drop'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.remove('over'); }));
-dz.addEventListener('drop', e => addFiles([...e.dataTransfer.files]));
-$('bSample').onclick = () => { $('inp').value = SAMPLE; runPasted(); };
-$('bClear').onclick = () => { $('inp').value=''; items=[]; pasted=null; sel=0; $('out').style.display='none'; $('msg').textContent=''; rebuild(); };
-$('bClean').onclick = () => {
-  const it = curItem(); if(!it){ $('msg').textContent='Chưa có văn bản.'; return; }
-  const c = cleanText(it.text);
-  copyTxt(c.text, c.removed ? `Đã xoá/chuẩn hoá ${c.removed} ký tự ẩn hoặc lạ` : 'Không có ký tự ẩn để xoá');
-};
-$('bReport').onclick = () => { const it = curItem(); if(!it){ $('msg').textContent='Chưa có văn bản.'; return; } copyTxt(reportOf(it), 'Báo cáo'); };
+$('inp').addEventListener('input',()=>{ clearTimeout(timer); timer=setTimeout(runPasted,350); });
+$('ref').addEventListener('input',()=>{ clearTimeout(timer); timer=setTimeout(invalidate,500); });
+$('fi').addEventListener('change',e=>{ addFiles([...e.target.files]); e.target.value=''; });
+const dz=$('drop');
+['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{ e.preventDefault(); dz.classList.add('over'); }));
+['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{ e.preventDefault(); dz.classList.remove('over'); }));
+dz.addEventListener('drop',e=>addFiles([...e.dataTransfer.files]));
+$('bSample').onclick=()=>{ $('inp').value=SAMPLE; runPasted(); };
+$('bClear').onclick=()=>{ $('inp').value=''; $('ref').value=''; files=[]; pasted=null; sel=0; $('out').style.display='none'; $('msg').textContent=''; render(); };
+$('bReport').onclick=()=>{ const it=curItem(); if(!it){ $('msg').textContent='Chưa có văn bản.'; return; } ensure(); copyTxt(reportOf(it),'Báo cáo'); };
+$('tA').onclick=()=>{tab='A';render();}; $('tC').onclick=()=>{tab='C';render();}; $('tG').onclick=()=>{tab='G';render();};
 </script>
 </body>
 </html>
